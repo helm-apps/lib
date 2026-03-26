@@ -1,4 +1,4 @@
-{{- define "fl.formatStringAsDNSLabel" }}
+{{- define "lib.formatStringAsDNSLabel" }}
   {{- $string := . }}
 
   {{- $result := $string | lower | nospace | replace "_" "-" | replace "/" "-" | replace "\\" "-" | replace ":" "-" | replace "," "-" | replace "." "-" }}

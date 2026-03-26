@@ -2,9 +2,9 @@ SHELL=/bin/bash
 
 all: deps
 deps:
-	werf helm dependency update charts/helm-apps
-	werf helm dependency update tests/.helm
+	helm dependency update charts/helm-apps
+	helm dependency update tests/.helm
 save_tests:
-	cd tests; werf render --set "global._includes.apps-defaults.enabled=true" --env=prod --dev | sed '/werf.io\//d' > test_render.yaml
+	cd tests; helm template tests .helm --namespace test-prod --set "global._includes.apps-defaults.enabled=true" --set "global.env=prod" > test_render.yaml
 test:
-	cd tests; diff <(werf render --set "global._includes.apps-defaults.enabled=true" --env=prod --dev | sed '/werf.io\//d') test_render.yaml
+	cd tests; diff <(helm template tests .helm --namespace test-prod --set "global._includes.apps-defaults.enabled=true" --set "global.env=prod") test_render.yaml

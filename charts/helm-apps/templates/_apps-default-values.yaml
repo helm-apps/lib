@@ -1,9 +1,9 @@
 {{- define "apps-default-values" }}
 global:
-  ## Альтернатива ограниченным yaml-алиасам Helm'а. Даёт возможность не дублировать одну и ту же конфигурацию много раз.
+  ## A more powerful alternative to Helm's limited YAML anchors. Avoids duplicating configuration across multiple apps.
   #
-  # Здесь, в "global._includes", объявляются блоки конфигурации, которые потом можно использовать в любых values-файлах.
-  # Пример подтягивания этих блоков конфигурации в репозитории приложения:
+  # Configuration blocks are declared here under global._includes and can be referenced anywhere in values files.
+  # Example of referencing a block:
   # -----------------------------------------------------------------------------------------------
   # .helm/values.yaml:
   # -----------------------------------------------------------------------------------------------
@@ -13,17 +13,14 @@ global:
   #     backoffLimit: 1
   # -----------------------------------------------------------------------------------------------
   #
-  # В примере выше конфигурация из include-блока "apps-cronjobs-defaultCronJob" развернётся на уровне
-  # apps-cronjobs.cronjob-1, а потом поверх развернувшейся конфигурации применится параметр "backoffLimit: 1",
-  # при необходимости перезаписав параметр "backoffLimit" из include-блока.
+  # In the example above, the include block expands at apps-cronjobs.cronjob-1 level; then backoffLimit: 1 is merged on top, overriding the value from the block.
   #
-  # Подробнее: https://github.com/flant/helm-charts/tree/master/.helm/charts/flant-lib#flexpandincludesinvalues-function
   _includes:
     apps-default-library-app:
       enabled: false
       imagePullSecrets: |
         - name: registrysecret
-    ## Конфигурация по умолчанию для CronJob в целом.
+    ## Default configuration for CronJob as a whole.
     apps-cronjobs-defaultCronJob:
       _include: ["apps-default-library-app"]
       # CLIENT: ask if this is ok for a default
@@ -43,11 +40,11 @@ global:
         resourcePolicy: |
           {}
 
-    ## Конфигурация по умолчанию для инит-контейнера CronJob.
+    ## Default configuration for CronJob init containers.
     apps-cronjobs-defaultCronJobInitContainer:
       enabled: true
 
-    ## Конфигурация по умолчанию для контейнера CronJob.
+    ## Default configuration for CronJob containers.
     apps-cronjobs-defaultCronJobContainer:
       enabled: true
 
@@ -57,7 +54,7 @@ global:
       _include: ["apps-default-library-app"]
       ingressClassName: "nginx"
 
-    ## Конфигурация по умолчанию для Job в целом.
+    ## Default configuration for Job as a whole.
     apps-jobs-defaultJob:
       _include: ["apps-default-library-app"]
       # CLIENT: ask if this is ok for a default
@@ -71,16 +68,16 @@ global:
         resourcePolicy: |
           {}
 
-    ## Конфигурация по умолчанию для инит-контейнера Job.
+    ## Default configuration for Job init containers.
     apps-jobs-defaultJobInitContainer:
       enabled: true
 
-    ## Конфигурация по умолчанию для контейнера Job.
+    ## Default configuration for Job containers.
     apps-jobs-defaultJobContainer:
       enabled: true
 
 
-    ## Конфигурация по умолчанию для приложения в целом.
+    ## Default configuration for the application as a whole.
     apps-stateful-defaultApp:
       _include: ["apps-default-library-app"]
       revisionHistoryLimit: 3
@@ -93,7 +90,7 @@ global:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
               labelSelector:
-                matchLabels: {{ include "fl.generateSelectorLabels" (list $ . .name) | nindent 22 }}
+                matchLabels: {{ include "lib.generateSelectorLabels" (list $ . .name) | nindent 22 }}
               topologyKey: kubernetes.io/hostname
             weight: 10
       priorityClassName:
@@ -109,15 +106,15 @@ global:
         name: "{{ $.CurrentApp.name }}"
         headless: true
 
-    ## Конфигурация по умолчанию для инит-контейнера приложения.
+    ## Default configuration for stateful application init containers.
     apps-stateful-defaultAppInitContainer:
       enabled: true
 
-    ## Конфигурация по умолчанию для контейнера приложения.
+    ## Default configuration for stateful application containers.
     apps-stateful-defaultAppContainer:
       enabled: true
 
-    ## Конфигурация по умолчанию для приложения в целом.
+    ## Default configuration for the application as a whole.
     apps-stateless-defaultApp:
       _include: ["apps-default-library-app"]
       revisionHistoryLimit: 3
@@ -154,11 +151,11 @@ global:
         enabled: false
         name: "{{ $.CurrentApp.name }}"
         headless: true
-    ## Конфигурация по умолчанию для инит-контейнера приложения.
+    ## Default configuration for stateless application init containers.
     apps-stateless-defaultAppInitContainer:
       enabled: true
 
-    ## Конфигурация по умолчанию для контейнера приложения.
+    ## Default configuration for stateless application containers.
     apps-stateless-defaultAppContainer:
       enabled: true
     apps-configmaps-defaultConfigmap:

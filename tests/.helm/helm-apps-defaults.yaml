@@ -5,7 +5,7 @@ apps-default-library-app:
   # CLIENT: ask if this is ok for a defaul
   imagePullSecrets: |
     - name: registrysecret
-## Конфигурация по умолчанию для CronJob в целом.
+## Default configuration for CronJobs.
 apps-cronjobs-defaultCronJob:
   _include: ["apps-default-library-app"]
   concurrencyPolicy: "Forbid"
@@ -52,7 +52,7 @@ apps-stateful-defaultApp:
       preferredDuringSchedulingIgnoredDuringExecution:
       - podAffinityTerm:
           labelSelector:
-            matchLabels: {{ include "fl.generateSelectorLabels" (list $ . .name) | nindent 22 }}
+            matchLabels: {{ include "lib.generateSelectorLabels" (list $ . .name) | nindent 22 }}
           topologyKey: kubernetes.io/hostname
         weight: 10
   priorityClassName:
@@ -99,4 +99,10 @@ apps-stateless-defaultApp:
     name: "{{ $.CurrentApp.name }}"
 
 apps-configmaps-defaultConfigmap:
+  _include: ["apps-defaults"]
+
+apps-karpenter-defaultNodeClass:
+  _include: ["apps-defaults"]
+
+apps-karpenter-defaultNodePool:
   _include: ["apps-defaults"]

@@ -19,7 +19,7 @@ spec:
   kafkaExporter:
     groupRegex: ".*"
     topicRegex: ".*"
-    resources:  {{- include "fl.generateContainerResources" (list $ . .exporter.resources) | nindent 6 }}
+    resources:  {{- include "lib.generateContainerResources" (list $ . .exporter.resources) | nindent 6 }}
     template:
       pod:
         metadata:
@@ -27,19 +27,19 @@ spec:
             prometheus.deckhouse.io/custom-target: kafka-exporter
           annotations:
             prometheus.deckhouse.io/port: "9404"
-            prometheus.deckhouse.io/sample-limit: "{{ include "fl.value" (list $ . .prometheusSampleLimit) | default 10000 }}"
-            {{- include "fl.value" (list $ . .annotations) | nindent 12 }}
+            prometheus.deckhouse.io/sample-limit: "{{ include "lib.value" (list $ . .prometheusSampleLimit) | default 10000 }}"
+            {{- include "lib.value" (list $ . .annotations) | nindent 12 }}
         {{- with .exporter.tolerations }}
-        tolerations: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 8 }}
+        tolerations: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 8 }}
         {{- end }}
         {{- with .exporter.affinity }}
-        affinity: {{ include "fl.value" (list $ . .) | nindent 10 }}
+        affinity: {{ include "lib.value" (list $ . .) | nindent 10 }}
         {{- end }}
   kafka:
-    version: {{ include "fl.value" (list $ . .version) }}
-    replicas: {{ include "fl.value" (list $ . .replicas) }}
-    resources: {{ include "fl.generateContainerResources" (list $ . .resources) | nindent 6 }}
-    jvmOptions: {{ include "fl.value" (list $ . .jvmOptions ) | nindent 6 }}
+    version: {{ include "lib.value" (list $ . .version) }}
+    replicas: {{ include "lib.value" (list $ . .replicas) }}
+    resources: {{ include "lib.generateContainerResources" (list $ . .resources) | nindent 6 }}
+    jvmOptions: {{ include "lib.value" (list $ . .jvmOptions ) | nindent 6 }}
     listeners:
     - name: plain
       port: 9092
@@ -56,13 +56,13 @@ spec:
             prometheus.deckhouse.io/custom-target: kafka
           annotations:
             prometheus.deckhouse.io/port: "9404"
-            prometheus.deckhouse.io/sample-limit: "{{ include "fl.value" (list $ . .prometheusSampleLimit) | default 50000 }}"
-        priorityClassName: {{ include "fl.valueQuoted" (list $ . .priorityClassName) }}
+            prometheus.deckhouse.io/sample-limit: "{{ include "lib.value" (list $ . .prometheusSampleLimit) | default 50000 }}"
+        priorityClassName: {{ include "lib.valueQuoted" (list $ . .priorityClassName) }}
         {{- with .tolerations }}
-        tolerations: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 8 }}
+        tolerations: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 8 }}
         {{- end }}
         {{- with .affinity }}
-        affinity: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 10 }}
+        affinity: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 10 }}
           podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
             - topologyKey: "kubernetes.io/hostname"
@@ -89,13 +89,13 @@ spec:
       volumes:
       - id: 0
         type: persistent-claim
-        size: {{ include "fl.value" (list $ . .storage.size) }}
-        class: {{ include "fl.value" (list $ . .storage.class) }}
+        size: {{ include "lib.value" (list $ . .storage.size) }}
+        class: {{ include "lib.value" (list $ . .storage.class) }}
         deleteClaim: false
   zookeeper:
-    priorityClassName: {{ include "fl.valueQuoted" (list $ . .priorityClassName) }}
-    replicas: {{ include "fl.value" (list $ . .zookeeper.replicas) }}
-    resources: {{ include "fl.generateContainerResources" (list $ . .zookeeper.resources) | nindent 6 }}
+    priorityClassName: {{ include "lib.valueQuoted" (list $ . .priorityClassName) }}
+    replicas: {{ include "lib.value" (list $ . .zookeeper.replicas) }}
+    resources: {{ include "lib.generateContainerResources" (list $ . .zookeeper.resources) | nindent 6 }}
     template:
       pod:
         metadata:
@@ -103,13 +103,13 @@ spec:
             prometheus.deckhouse.io/custom-target: zookeeper
           annotations:
             prometheus.deckhouse.io/port: "9404"
-            prometheus.deckhouse.io/sample-limit: "{{ include "fl.value" (list $ . .prometheusSampleLimit) | default 5000 }}"
+            prometheus.deckhouse.io/sample-limit: "{{ include "lib.value" (list $ . .prometheusSampleLimit) | default 5000 }}"
         {{- with .zookeeper.tolerations }}
-        tolerations: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 8 }}
+        tolerations: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 8 }}
         {{- end }}
-        priorityClassName: {{ include "fl.valueQuoted" (list $ . .priorityClassName) }}
+        priorityClassName: {{ include "lib.valueQuoted" (list $ . .priorityClassName) }}
         affinity:
-          {{- include "fl.value" (list $ $.CurrentApp .zookeeper.affinity) | nindent 10 }}
+          {{- include "lib.value" (list $ $.CurrentApp .zookeeper.affinity) | nindent 10 }}
           podAntiAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
             - topologyKey: "kubernetes.io/hostname"
@@ -117,31 +117,31 @@ spec:
                 matchLabels:
                   strimzi.io/name: {{ $.CurrentKafka.name }}-{{ $.Values.global.env }}-zookeeper
         terminationGracePeriodSeconds: 120
-    metricsConfig: {{ include "fl.value" (list $ . .zookeeper.metricsConfig) | nindent 6 }}
-    jvmOptions: {{ include "fl.value" (list $ . .zookeeper.jvmOptions) | nindent 6 }}
+    metricsConfig: {{ include "lib.value" (list $ . .zookeeper.metricsConfig) | nindent 6 }}
+    jvmOptions: {{ include "lib.value" (list $ . .zookeeper.jvmOptions) | nindent 6 }}
     storage:
       type: persistent-claim
-      size: {{ include "fl.value" (list $ . .zookeeper.storage.size) }}
-      class: {{ include "fl.value" (list $ . .zookeeper.storage.class) }}
+      size: {{ include "lib.value" (list $ . .zookeeper.storage.size) }}
+      class: {{ include "lib.value" (list $ . .zookeeper.storage.class) }}
       deleteClaim: false
   entityOperator:
-    priorityClassName: {{ include "fl.valueQuoted" (list $ . .priorityClassName) }}
+    priorityClassName: {{ include "lib.valueQuoted" (list $ . .priorityClassName) }}
     template:
       pod:
         metadata:
           labels:
             apps-kafka-strimzi: entity-operator
-        priorityClassName: {{ include "fl.valueQuoted" (list $ . .priorityClassName) }}
+        priorityClassName: {{ include "lib.valueQuoted" (list $ . .priorityClassName) }}
         {{- with .entityOperator.tolerations }}
-        tolerations: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 8 }}
+        tolerations: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 8 }}
         {{- end }}
         {{- with .entityOperator.affinity }}
-        affinity: {{ include "fl.value" (list $ $.CurrentApp .) | nindent 10 }}
+        affinity: {{ include "lib.value" (list $ $.CurrentApp .) | nindent 10 }}
         {{- end }}
     topicOperator:
-      resources: {{ include "fl.generateContainerResources" (list $ . .entityOperator.topicOperator.resources) | nindent 8 }}
+      resources: {{ include "lib.generateContainerResources" (list $ . .entityOperator.topicOperator.resources) | nindent 8 }}
     userOperator:
-      resources: {{ include "fl.generateContainerResources" (list $ . .entityOperator.userOperator.resources) | nindent 8 }}
+      resources: {{ include "lib.generateContainerResources" (list $ . .entityOperator.userOperator.resources) | nindent 8 }}
 
 {{- include "kafka-topics" (list $ . .topics) }}
 
@@ -215,12 +215,12 @@ metadata:
     strimzi.io/cluster: {{ $.CurrentApp.name }}-{{ $.Values.global.env }}
 spec:
   topicName: {{ $name }}
-  partitions: {{ include "fl.value" (list $ . .partitions) }}
-  replicas: {{  include "fl.value" (list $ . .replicas) }}
+  partitions: {{ include "lib.value" (list $ . .partitions) }}
+  replicas: {{  include "lib.value" (list $ . .replicas) }}
   config:
-    retention.ms: {{  include "fl.value" (list $ . .retention) }}
-    segment.bytes: {{  include "fl.value" (list $ . .segment_bytes) }}
-    min.insync.replicas: {{  include "fl.value" (list $ . .min_insync_replicas) }}
+    retention.ms: {{  include "lib.value" (list $ . .retention) }}
+    segment.bytes: {{  include "lib.value" (list $ . .segment_bytes) }}
+    min.insync.replicas: {{  include "lib.value" (list $ . .min_insync_replicas) }}
 {{- end }}
 {{- end }}
 

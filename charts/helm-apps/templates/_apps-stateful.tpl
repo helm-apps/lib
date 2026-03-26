@@ -12,11 +12,11 @@
 {{- $ := . }}
 {{- with $.CurrentApp }}
 {{- if not .containers }}
-{{- fail (printf "Установлено значение enabled для не настроенного '%s' в %s приложения!" $.CurrentApp.name "apps-stateful") }}
+{{- fail (printf "'%s' is enabled in apps-stateful but has no containers configured" $.CurrentApp.name) }}
 {{- end }}
 {{/* Defaults values */}}
 {{- if .service }}
-{{- if include "fl.isTrue" (list $ . .service.enabled) }}
+{{- if include "lib.isTrue" (list $ . .service.enabled) }}
 {{- if not .service.name }}
 {{- $_ := set .service "name" .name }}
 {{- end }}
@@ -34,7 +34,7 @@ kind: StatefulSet
 {{-  end }}
 {{- include "apps-helpers.metadataGenerator" (list $ .) }}
 spec:
-  {{- /* https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#statefulset-v1-apps */ -}}
+  {{- /* https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#statefulset-v1-apps */ -}}
   {{- $specs := dict }}
   {{- $_ = set $specs "Maps" (list "apps-helpers.podTemplate" "apps-specs.selector" "persistentVolumeClaimRetentionPolicy" "updateStrategy") }}
   {{- $_ = set $specs "Numbers" (list "replicas" "minReadySeconds" "revisionHistoryLimit" "progressDeadlineSeconds") }}
@@ -50,8 +50,6 @@ spec:
 {{- include "apps-components.podDisruptionBudget" (list $ . .podDisruptionBudget) -}}
 
 {{- include "apps-components.verticalPodAutoscaler" (list $ . .verticalPodAutoscaler "StatefulSet") -}}
-
-{{- include "apps-deckhouse.metrics" $ -}}
 
 {{ $serviceAccount -}}
 

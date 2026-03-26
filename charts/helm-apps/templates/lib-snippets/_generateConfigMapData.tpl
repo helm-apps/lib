@@ -1,4 +1,4 @@
-{{- define "fl.generateConfigMapData" }}
+{{- define "lib.generateConfigMapData" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $data := index . 2 }}

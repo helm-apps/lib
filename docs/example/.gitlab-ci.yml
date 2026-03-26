@@ -1,14 +1,10 @@
 stages:
-- validate
-- publish-charts
+  - validate
 
-
-default:
-  tags:
-  - werf
-
-before_script:
-- set -eo pipefail
-- type trdl && source $(trdl use werf ${WERF_VERSION:-1.2 ea})
-- type werf && source $(werf ci-env gitlab --as-file)
-- werf helm repo add --force-update helm-apps https://flant.github.io/helm-apps
+validate:
+  stage: validate
+  image: alpine/helm:latest
+  script:
+    - helm repo add helm-apps https://flant.github.io/helm-apps
+    - helm dependency update .helm
+    - helm template myapp .helm --namespace myns --set "global.env=prod" > /dev/null

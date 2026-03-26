@@ -1,15 +1,18 @@
+---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-limit-range.mem-dafault
 apiVersion: v1
 kind: LimitRange
 metadata:
   name: "mem-dafault"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "mem-dafault"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   limits:
     - default:
@@ -18,206 +21,233 @@ spec:
         memory: 128Mi
       type: Container
 ---
-# Helm Apps Library: apps-stateless-deckhouse-metrics.app-with-deckhouse-metrics.podDisruptionBudget
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: "app-with-deckhouse-metrics"
-  annotations:
-    helm-apps/version: "TEST"
-  labels:
-    app: "app-with-deckhouse-metrics"
-    chart: "tests"
-    repo: ""
-spec:
-  selector:
-    matchLabels:
-      app: "app-with-deckhouse-metrics"
-  maxUnavailable: 15%
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: fromSecretsEnvVars-test.app-for-test-from-secrets-env-vars.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "app-for-test-from-secrets-env-vars"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "app-for-test-from-secrets-env-vars"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "app-for-test-from-secrets-env-vars"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: test-common-group-hook.test-app.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "test-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "test-app"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: test-common-group-hook.test-app-2.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "test-app-2"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "test-app-2"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: test-env-yaml.env-yaml-app.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "env-yaml-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "env-yaml-app"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: test-hpa.hpa-app.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "hpa-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "hpa-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: my-selector
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateless.app-1.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "app-1"
   maxUnavailable: 1
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateless.minimum-app.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "minimum-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "minimum-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "minimum-app"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateless.nginx.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "nginx"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "nginx"
   maxUnavailable: 15%
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateless.pod-disruption-budget-integer.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "pod-disruption-budget-integer"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "pod-disruption-budget-integer"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "pod-disruption-budget-integer"
   maxUnavailable: 1
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateful.app-1.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
       app: "app-1"
   maxUnavailable: 1
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateful.stateful-simple.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "stateful-simple"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "stateful-simple"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   selector:
     matchLabels:
@@ -229,24 +259,30 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "test-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "test-app-2"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-env-yaml.env-yaml-app.containers.test.secretEnvVars
 apiVersion: v1
@@ -255,13 +291,15 @@ metadata:
   name: "envs-containers-env-yaml-app-test"
   annotations:
     helm-apps/version: "TEST"
-  labels:
+  labels: 
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST_APP_LEVEL1_TEST_ENV3": "ZGVmYXVsdCB2YWx1ZSBmcm9tIGVudlZhcnM="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.initContainers.init-container-1.secret.conf
 apiVersion: v1
@@ -271,13 +309,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.initContainers.init-container-1.secretEnvVars
 apiVersion: v1
@@ -287,13 +327,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.containers.container-1.secret.conf
 apiVersion: v1
@@ -303,13 +345,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEKc2VjcmV0bGluZTIK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.containers.container-1.secretEnvVars
 apiVersion: v1
@@ -319,14 +363,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
   "TEST2": "dmFsMg=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.nginx.containers.nginx.secretEnvVars
 apiVersion: v1
@@ -335,13 +381,15 @@ metadata:
   name: "envs-containers-nginx-nginx"
   annotations:
     helm-apps/version: "TEST"
-  labels:
+  labels: 
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "SECRET_TOKEN": "ISEhc2VjcmV0LXRva2VuLWZvci1iYWNrZW5kISEh"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.initContainers.init-container-1.secret.conf
 apiVersion: v1
@@ -351,13 +399,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.initContainers.init-container-1.secretEnvVars
 apiVersion: v1
@@ -367,13 +417,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.containers.container-1.secret.conf
 apiVersion: v1
@@ -383,13 +435,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEKc2VjcmV0bGluZTIK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.containers.container-1.secretEnvVars
 apiVersion: v1
@@ -399,14 +453,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
   "TEST2": "dmFsMg=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.initContainers.init-container-1.secret.conf
 apiVersion: v1
@@ -416,13 +472,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.initContainers.init-container-1.secretEnvVars
 apiVersion: v1
@@ -432,13 +490,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.containers.container-1.secret.conf
 apiVersion: v1
@@ -448,13 +508,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEKc2VjcmV0bGluZTIK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.containers.container-1.secretEnvVars
 apiVersion: v1
@@ -464,14 +526,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
   "TEST2": "dmFsMg=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.initContainers.init-container-1.secret.conf
 apiVersion: v1
@@ -481,13 +545,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.initContainers.init-container-1.secretEnvVars
 apiVersion: v1
@@ -497,13 +563,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.containers.container-1.secret.conf
 apiVersion: v1
@@ -513,13 +581,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
 data:
   "secret.conf": "c2VjcmV0bGluZTEKc2VjcmV0bGluZTIK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.containers.container-1.secretEnvVars
 apiVersion: v1
@@ -529,12 +599,12 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 type: Opaque
-data:
+data: 
   "TEST1": "dmFsMQ=="
   "TEST2": "dmFsMg=="
 ---
@@ -544,18 +614,25 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: "secret-1"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "secret-1"
     chart: "tests"
-    repo: ""
-type: Opaque
+    repo: "tests"
+type:
+  Opaque
 data:
+  
   "TEST1": "dmFsMQ=="
   "TEST2": "dmFsMg=="
+  
   "secret.conf": "cGxhaW5UZXh0TGluZTEKcGxhaW5UZXh0TGluZTIK"
   "secret2.conf": "cGxhaW5UZXh0TGluZTEK"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-env-yaml.env-yaml-app.containers.test.configFiles.conf
 apiVersion: v1
@@ -564,13 +641,15 @@ metadata:
   name: "config-containers-env-yaml-app-test-conf"
   annotations:
     helm-apps/version: "TEST"
-  labels:
+  labels: 
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "conf": |
+  "conf": | 
     test
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-env-yaml.env-yaml-app.containers.test.configFilesYAML.config
 apiVersion: v1
@@ -579,12 +658,12 @@ metadata:
   name: "config-yaml-containers-env-yaml-app-test-config"
   annotations:
     helm-apps/version: "TEST"
-  labels:
+  labels: 
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "config": |
+  "config": | 
     level1:
       testMap:
         testProd2: 2v
@@ -605,6 +684,8 @@ data:
     testValue: value from file
     testValueWithDefault: default value from file
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateless.app-1.initContainers.init-container-1.configFiles.nginx.conf
 apiVersion: v1
 kind: ConfigMap
@@ -613,13 +694,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.containers.container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -629,14 +712,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
     configline2
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.nginx.containers.nginx.configFiles.default.conf
 apiVersion: v1
@@ -645,12 +730,12 @@ metadata:
   name: "config-containers-nginx-nginx-default-conf"
   annotations:
     helm-apps/version: "TEST"
-  labels:
+  labels: 
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "default.conf": |
+  "default.conf": | 
     server {
       listen         80 default_server;
       listen         [::]:80 default_server;
@@ -665,6 +750,8 @@ data:
       }
     }
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-stateful.app-1.initContainers.init-container-1.configFiles.nginx.conf
 apiVersion: v1
 kind: ConfigMap
@@ -673,13 +760,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.containers.container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -689,14 +778,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
     configline2
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.initContainers.init-container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -706,13 +797,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-cronjobs.cronjob-1.containers.container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -722,14 +815,16 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
     configline2
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.initContainers.init-container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -739,13 +834,15 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.containers.container-1.configFiles.nginx.conf
 apiVersion: v1
@@ -755,12 +852,12 @@ metadata:
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
-  labels:
+  labels: 
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 data:
-  "nginx.conf": |
+  "nginx.conf": | 
     configline1
     configline2
 ---
@@ -770,12 +867,15 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: "configmap-1"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "configmap-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
+
 data:
   "TEST1": "val1"
   "TEST2": "val2"
@@ -784,6 +884,7 @@ data:
     configline2
   something.conf: |
     configline1
+
 binaryData:
   test.gz: jdbkjbkjsdbkjdbjdsbljl
 ---
@@ -793,14 +894,17 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: "configmap-2"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "configmap-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
+
 data:
-  "nginx.conf": "configline1\nconfigline2 \n"
+  "nginx.conf": "configline1\nconfigline2\n"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-pvcs.test-pvc
@@ -808,16 +912,18 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "test-pvc"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-pvc"
     chart: "tests"
-    repo: ""
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
+    repo: "tests"
+spec:  
+  accessModes: 
+  - ReadWriteMany
+  resources: 
     requests:
       storage: 1Gi
   storageClassName: "test-sc"
@@ -827,12 +933,14 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: "test-app:prometheus-access"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 rules:
   - apiGroups: ["monitoring.coreos.com"]
     resources: ["prometheuses/http"]
@@ -844,12 +952,14 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: "test-app-2:prometheus-access"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 rules:
   - apiGroups: ["monitoring.coreos.com"]
     resources: ["prometheuses/http"]
@@ -861,115 +971,140 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: "test-app:prometheus-access"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: test-app:prometheus-access
+  name:  test-app:prometheus-access
 subjects:
-  - kind: ServiceAccount
-    name: test-app
-    namespace: test-prod
+- kind: ServiceAccount
+  name: test-app
+  namespace: test-prod
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: "test-app-2:prometheus-access"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: test-app-2:prometheus-access
+  name:  test-app-2:prometheus-access
 subjects:
-  - kind: ServiceAccount
-    name: test-app-2
-    namespace: test-prod
+- kind: ServiceAccount
+  name: test-app-2
+  namespace: test-prod
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-hpa.hpa-app.service
 apiVersion: v1
 kind: Service
 metadata:
   name: "hpa-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "hpa-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
+  
+  ports: 
+  - name: http
+    port: 80
+  selector: 
     app: my-selector
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.service
 apiVersion: v1
 kind: Service
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
+  
+  ports: 
+  - name: http
+    port: 80
+  selector: 
     app: "app-1"
   clusterIP: "None"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.nginx.service
 apiVersion: v1
 kind: Service
 metadata:
   name: "nginx"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
+  
+  ports: 
+  - name: http
+    port: 80
+  selector: 
     app: "nginx"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.service
 apiVersion: v1
 kind: Service
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
     testLabel: "testVal"
+    
 spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
+  
+  ports: 
+  - name: http
+    port: 80
+  selector: 
     app: "app-1"
   clusterIP: "None"
 ---
@@ -979,353 +1114,360 @@ apiVersion: v1
 kind: Service
 metadata:
   name: "service-1"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "service-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  ports:
-    - name: http
-      port: 80
-  selector:
+  
+  ports: 
+  - name: http
+    port: 80
+  selector: 
     app: test-app
----
-# Source: tests/templates/init-helm-apps-library.yaml
-# Helm Apps Library: apps-stateless-deckhouse-metrics.app-with-deckhouse-metrics
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: "app-with-deckhouse-metrics"
-  annotations:
-    checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    helm-apps/version: "TEST"
-  labels:
-    app: "app-with-deckhouse-metrics"
-    chart: "tests"
-    repo: ""
-spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 20%
-      maxUnavailable: 25%
-    type: RollingUpdate
-  template:
-    metadata:
-      name: "app-with-deckhouse-metrics"
-      annotations:
-        checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-      labels:
-        app: "app-with-deckhouse-metrics"
-        chart: "tests"
-        repo: ""
-    spec:
-      containers:
-        - name: "main"
-          image: REPO:TAG
-          env:
-            - name: "test"
-              value: "test"
-      imagePullSecrets:
-        - name: registrysecret
-      priorityClassName: "production-medium"
-  selector:
-    matchLabels:
-      app: "app-with-deckhouse-metrics"
-  revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: fromSecretsEnvVars-test.app-for-test-from-secrets-env-vars
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "app-for-test-from-secrets-env-vars"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "app-for-test-from-secrets-env-vars"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "app-for-test-from-secrets-env-vars"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "app-for-test-from-secrets-env-vars"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: test:1
-          env:
-            - name: "APP_ENV_NAME_1"
-              valueFrom:
-                secretKeyRef:
-                  name: "secret-1"
-                  key: "SECRET_ENV_NAME_1"
-            - name: "APP_ENV_NAME_2"
-              valueFrom:
-                secretKeyRef:
-                  name: "secret-1"
-                  key: "SECRET_ENV_NAME_2"
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "main"
+        image: test:1
+        env:
+        - name: "APP_ENV_NAME_1"
+          valueFrom:
+            secretKeyRef:
+              name: "secret-1"
+              key: "SECRET_ENV_NAME_1"
+        - name: "APP_ENV_NAME_2"
+          valueFrom:
+            secretKeyRef:
+              name: "secret-1"
+              key: "SECRET_ENV_NAME_2"
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "app-for-test-from-secrets-env-vars"
   revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-common-group-hook.test-app
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "test-app"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "test-app"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "test-app"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: test:1
-          env:
-            - name: "test"
-              value: "test"
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "main"
+        image: test:1
+        env:
+        - name: "test"
+          value: "test"
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
       serviceAccountName: "test-app"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "test-app"
   revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-common-group-hook.test-app-2
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "test-app-2"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "test-app-2"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "test-app-2"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: test:1
-          env:
-            - name: "test"
-              value: "test"
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "main"
+        image: test:1
+        env:
+        - name: "test"
+          value: "test"
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
       serviceAccountName: "test-app-2"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "test-app-2"
   revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-env-yaml.env-yaml-app
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "env-yaml-app"
+  
   annotations:
     checksum/config: "f0b89172b9c460ce9fe6c12abe9d5a02d3210d97827b134b7d04abf3c499c822"
     helm-apps/version: "TEST"
   labels:
+    
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "env-yaml-app"
+      
       annotations:
         checksum/config: "f0b89172b9c460ce9fe6c12abe9d5a02d3210d97827b134b7d04abf3c499c822"
       labels:
+        
         app: "env-yaml-app"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "test"
-          image:
-          env:
-            - name: "ALTER_NAME_YAML"
-              value: "default value"
-            - name: "TESTAPP_LEVEL1_LEVEL2_TEST"
-              value: "default value"
-            - name: "TESTAPP_LEVEL1_TESTENV3"
-              value: "from envYAML"
-            - name: "TESTAPP_LEVEL1_TESTENV4"
-              value: "prod value from envVars"
-          envFrom:
-            - secretRef:
-                name: "envs-containers-env-yaml-app-test"
-          volumeMounts:
-            - name: "config-containers-env-yaml-app-test-conf"
-              subPath: "conf"
-              mountPath: "/config"
-            - name: "config-yaml-containers-env-yaml-app-test-config"
-              subPath: "config"
-              mountPath: "/config"
-      imagePullSecrets:
-        - name: registrysecret
-      volumes:
+      - name: "test"
+        image: 
+        env:
+        - name: "ALTER_NAME_YAML"
+          value: "default value"
+        - name: "TESTAPP_LEVEL1_LEVEL2_TEST"
+          value: "default value"
+        - name: "TESTAPP_LEVEL1_TESTENV3"
+          value: "from envYAML"
+        - name: "TESTAPP_LEVEL1_TESTENV4"
+          value: "prod value from envVars"
+        envFrom:
+        - secretRef:
+            name: "envs-containers-env-yaml-app-test"
+        
+        volumeMounts: 
         - name: "config-containers-env-yaml-app-test-conf"
-          configMap:
-            name: "config-containers-env-yaml-app-test-conf"
+          subPath: "conf"
+          mountPath: "/config"
         - name: "config-yaml-containers-env-yaml-app-test-config"
-          configMap:
-            name: "config-yaml-containers-env-yaml-app-test-config"
+          subPath: "config"
+          mountPath: "/config"
+      imagePullSecrets: 
+      - name: registrysecret
+      volumes: 
+      - name: "config-containers-env-yaml-app-test-conf"
+        configMap:
+          name: "config-containers-env-yaml-app-test-conf"
+      - name: "config-yaml-containers-env-yaml-app-test-config"
+        configMap:
+          name: "config-yaml-containers-env-yaml-app-test-config"
       priorityClassName: "production-medium"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "env-yaml-app"
   revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-group.test-app-stateless
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "test-app-stateless"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-stateless"
     chart: "tests"
-    repo: ""
-spec:
-  template:
+    repo: "tests"
+spec:  
+  template: 
     metadata:
       name: "test-app-stateless"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "test-app-stateless"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: REPO:TAG
-          env:
-            - name: "defaultTest"
-              value: "default"
-            - name: "notRegex"
-              value: "testDefault"
-            - name: "regexEnv"
-              value: "defaultError"
-      imagePullSecrets:
-        - name: registrysecret
-  selector:
+      - name: "main"
+        image: registry.example.com/myapp/nginx:sha256-abc123
+        env:
+        - name: "defaultTest"
+          value: "default"
+        - name: "notRegex"
+          value: "testDefault"
+        - name: "regexEnv"
+          value: "defaultError"
+      imagePullSecrets: 
+      - name: registrysecret
+  selector: 
     matchLabels:
+      
       app: "test-app-stateless"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-hpa.hpa-app
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "hpa-app"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "hpa-app"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "hpa-app"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "hpa-app"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: test:1
-          env:
-            - name: "test"
-              value: "test"
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "main"
+        image: test:1
+        env:
+        - name: "test"
+          value: "test"
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
-  selector:
+  selector: 
     matchLabels:
       app: my-selector
   revisionHistoryLimit: 3
@@ -1333,176 +1475,192 @@ spec:
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateless.app-1
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "app-1"
+  
   annotations:
-    checksum/config: "26b1f9d89bb284630ce4bef3168b25692e1f4a52fd58fdea6ffa45f4e56a17f2"
+    checksum/config: "14aeb92c2c444a2623279fd0cf52ac8522bf5485f312a111a64b1a112a5beaad"
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
     testLabel: "testVal"
-spec:
-  strategy:
+    testNginx: Val
+    
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "app-1"
+      
       annotations:
-        checksum/config: "26b1f9d89bb284630ce4bef3168b25692e1f4a52fd58fdea6ffa45f4e56a17f2"
+        checksum/config: "14aeb92c2c444a2623279fd0cf52ac8522bf5485f312a111a64b1a112a5beaad"
         testAnnotation: "testVal"
       labels:
+        
         app: "app-1"
         chart: "tests"
-        repo: ""
+        repo: "tests"
         testLabel: "testVal"
+        testNginx: Val
+        
     spec:
+      
       initContainers:
-        - name: "init-container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-initcontainers-app-1-init-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-initcontainers-app-1-init-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-      containers:
-        - name: "container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-            - name: "TEST2"
-              value: "val2"
-            - name: "APP_ENV_NAME_2"
-              valueFrom:
-                secretKeyRef:
-                  name: "secret-1"
-                  key: "SECRET_ENV_NAME_2"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-containers-app-1-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-              ephemeral-storage: 1024Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-              ephemeral-storage: 1024Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-containers-app-1-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-containers-app-1-container-1-nginx-conf2"
-              subPath: "nginx.conf2"
-              mountPath: "/etc/nginx/nginx2.conf"
-            - name: "config-containers-app-1-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          ports:
-            - name: http
-              containerPort: 80
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-          livenessProbe:
-            httpGet:
-              path: /liveness
-              port: 80
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: 80
-          startupProbe:
-            httpGet:
-              path: /startup
-              port: 80
-      tolerations:
-        - key: something
-          operator: Equal
-          value: somethingelse
-      imagePullSecrets:
-        - name: registrysecret
-      volumes:
-        - name: cache-volume
-          emptyDir: {}
+      - name: "init-container-1"
+        image: alpine:3
+        env:
+        - name: "TEST1"
+          value: "val1"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-initcontainers-app-1-init-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
-          configMap:
-            name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-initcontainers-app-1-init-container-1-secret-conf"
-          secret:
-            secretName: "config-initcontainers-app-1-init-container-1-secret-conf"
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+      containers:
+      - name: "container-1"
+        image: registry.example.com/myapp/nginx:sha256-abc123
+        env:
+        - name: "TEST1"
+          value: "val1"
+        - name: "TEST2"
+          value: "val2"
+        - name: "APP_ENV_NAME_2"
+          valueFrom:
+            secretKeyRef:
+              name: "secret-1"
+              key: "SECRET_ENV_NAME_2"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-containers-app-1-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+            ephemeral-storage: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+            ephemeral-storage: 1024Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-containers-app-1-container-1-nginx-conf"
-          configMap:
-            name: "config-containers-app-1-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-containers-app-1-container-1-nginx-conf2"
-          configMap:
-            name: "configmap-1"
+          subPath: "nginx.conf2"
+          mountPath: "/etc/nginx/nginx2.conf"
         - name: "config-containers-app-1-container-1-secret-conf"
-          secret:
-            secretName: "config-containers-app-1-container-1-secret-conf"
-      affinity:
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        ports: 
+        - name: http
+          containerPort: 80
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+        livenessProbe: 
+          httpGet:
+            path: /liveness
+            port: 80
+        readinessProbe: 
+          httpGet:
+            path: /readiness
+            port: 80
+        startupProbe: 
+          httpGet:
+            path: /startup
+            port: 80
+      tolerations: 
+      - key: something
+        operator: Equal
+        value: somethingelse
+      imagePullSecrets: 
+      - name: registrysecret
+      volumes: 
+      - name: cache-volume
+        emptyDir: {}
+      
+      - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+        configMap:
+          name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+      - name: "config-initcontainers-app-1-init-container-1-secret-conf"
+        secret:
+          secretName: "config-initcontainers-app-1-init-container-1-secret-conf"
+      - name: "config-containers-app-1-container-1-nginx-conf"
+        configMap:
+          name: "config-containers-app-1-container-1-nginx-conf"
+      - name: "config-containers-app-1-container-1-nginx-conf2"
+        configMap:
+          name: "configmap-1"
+      - name: "config-containers-app-1-container-1-secret-conf"
+        secret:
+          secretName: "config-containers-app-1-container-1-secret-conf"
+      affinity: 
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app: "app-1"
-                    chart: "tests"
-                    repo: ""
-                topologyKey: kubernetes.io/hostname
-              weight: 10
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                              
+                              app: "app-1"
+                              chart: "tests"
+                              repo: "tests"
+              topologyKey: kubernetes.io/hostname
+            weight: 10
       dnsPolicy: "ClusterFirstWithHostNet"
       priorityClassName: "production-medium"
       terminationGracePeriodSeconds: 30
       automountServiceAccountToken: false
       hostNetwork: true
-  selector:
+  selector: 
     matchLabels:
+      
       app: "app-1"
   revisionHistoryLimit: 3
   replicas: 2
@@ -1510,99 +1668,117 @@ spec:
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateless.minimum-app
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "minimum-app"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "minimum-app"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "minimum-app"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "minimum-app"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "container-1"
-          image: alpine:3
-          command:
-            - tail
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "container-1"
+        image: alpine:3
+        
+        command: 
+        - tail
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "minimum-app"
   revisionHistoryLimit: 3
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateless.nginx
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "nginx"
+  
   annotations:
     checksum/config: "19812d5210967fd69097dc991263af171c4071ebb455357bd49be2a0ca05acdd"
     helm-apps/version: "TEST"
   labels:
+    
     app: "nginx"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "nginx"
+      
       annotations:
         checksum/config: "19812d5210967fd69097dc991263af171c4071ebb455357bd49be2a0ca05acdd"
       labels:
+        
         app: "nginx"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "nginx"
-          image: REPO:TAG
-          envFrom:
-            - secretRef:
-                name: "envs-containers-nginx-nginx"
-          volumeMounts:
-            - name: "config-containers-nginx-nginx-default-conf"
-              subPath: "default.conf"
-              mountPath: "/etc/nginx/templates/default.conf.template"
-          ports:
-            - name: http
-              containerPort: 80
-      imagePullSecrets:
-        - name: registrysecret
-      volumes:
+      - name: "nginx"
+        image: registry.example.com/myapp/nginx:sha256-abc123
+        envFrom:
+        - secretRef:
+            name: "envs-containers-nginx-nginx"
+        
+        volumeMounts: 
         - name: "config-containers-nginx-nginx-default-conf"
-          configMap:
-            name: "config-containers-nginx-nginx-default-conf"
+          subPath: "default.conf"
+          mountPath: "/etc/nginx/templates/default.conf.template"
+        ports: 
+        - name: http
+          containerPort: 80
+      imagePullSecrets: 
+      - name: registrysecret
+      volumes: 
+      - name: "config-containers-nginx-nginx-default-conf"
+        configMap:
+          name: "config-containers-nginx-nginx-default-conf"
       priorityClassName: "production-medium"
       automountServiceAccountToken: true
-  selector:
+  selector: 
     matchLabels:
+      
       app: "nginx"
   revisionHistoryLimit: 3
   replicas: 1
@@ -1610,310 +1786,344 @@ spec:
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateless.pod-disruption-budget-integer
 
+
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: "pod-disruption-budget-integer"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "pod-disruption-budget-integer"
     chart: "tests"
-    repo: ""
-spec:
-  strategy:
+    repo: "tests"
+spec:  
+  strategy: 
     rollingUpdate:
       maxSurge: 20%
       maxUnavailable: 25%
     type: RollingUpdate
-  template:
+  template: 
     metadata:
       name: "pod-disruption-budget-integer"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "pod-disruption-budget-integer"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "container-1"
-          image: alpine:3
-          command:
-            - tail
-      imagePullSecrets:
-        - name: registrysecret
+      - name: "container-1"
+        image: alpine:3
+        
+        command: 
+        - tail
+      imagePullSecrets: 
+      - name: registrysecret
       priorityClassName: "production-medium"
-  selector:
+  selector: 
     matchLabels:
+      
       app: "pod-disruption-budget-integer"
   revisionHistoryLimit: 3
   replicas: 2
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-hpa.hpa-app.horizontalPodAutoscaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: "hpa-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "hpa-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   minReplicas: 3
   maxReplicas: 10
   behavior:
     scaleDown:
       policies:
-        - type: Percent
-          value: 10
-          periodSeconds: 60
+      - type: Percent
+        value: 10
+        periodSeconds: 60
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: "hpa-app"
   metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
-    - type: Object
-      object:
-        describedObject:
-          apiVersion: v1
-          kind: Service
-          name: hpa-metric-1
-        metric:
-          name: custom-metric-1
-        target:
-          type: Value
-          value: 10000m
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 30
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  
+  - type: Object
+    object:
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: hpa-metric-1
+      metric:
+        name: custom-metric-1
+      target:
+        type: Value
+        value: 10000m
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 30
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.horizontalPodAutoscaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   minReplicas: 1
   maxReplicas: 1
   behavior:
     scaleDown:
       policies:
-        - type: Percent
-          value: 10
-          periodSeconds: 60
+      - type: Percent
+        value: 10
+        periodSeconds: 60
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: "app-1"
   metrics:
-    - type: Object
-      object:
-        describedObject:
-          apiVersion: v1
-          kind: Service
-          name: "app-1"
-        metric:
-          name: "metric-1"
-        target:
-          type: Value
-          value: 10000m
+  - type: Object
+    object:
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: "app-1"
+      metric:
+        name: "metric-1"
+      target:
+        type: Value
+        value: 10000m
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateful.app-1
 
+
 apiVersion: apps/v1
 kind: StatefulSet
+
 metadata:
   name: "app-1"
+  
   annotations:
-    checksum/config: "26b1f9d89bb284630ce4bef3168b25692e1f4a52fd58fdea6ffa45f4e56a17f2"
+    checksum/config: "14aeb92c2c444a2623279fd0cf52ac8522bf5485f312a111a64b1a112a5beaad"
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
     testLabel: "testVal"
+    
 spec:
-  volumeClaimTemplates:
-    - metadata:
-        name: data2-containers-app-1-container-1--data2
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
-        storageClassName: localStorage
-        volumeMode: Filesystem
-  template:
+  
+  volumeClaimTemplates: 
+  - metadata:
+      name: data2-containers-app-1-container-1--data2
+    spec:
+      accessModes: 
+      
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: localStorage
+      volumeMode: Filesystem
+  template: 
     metadata:
       name: "app-1"
+      
       annotations:
-        checksum/config: "26b1f9d89bb284630ce4bef3168b25692e1f4a52fd58fdea6ffa45f4e56a17f2"
+        checksum/config: "14aeb92c2c444a2623279fd0cf52ac8522bf5485f312a111a64b1a112a5beaad"
         testAnnotation: "testVal"
       labels:
+        
         app: "app-1"
         chart: "tests"
-        repo: ""
+        repo: "tests"
         testLabel: "testVal"
+        
     spec:
+      
       initContainers:
-        - name: "init-container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-initcontainers-app-1-init-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-initcontainers-app-1-init-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-      containers:
-        - name: "container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-            - name: "TEST2"
-              value: "val2"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-containers-app-1-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-containers-app-1-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-containers-app-1-container-1-nginx-conf2"
-              subPath: "nginx.conf2"
-              mountPath: "/etc/nginx/nginx2.conf"
-            - name: "config-containers-app-1-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-            - name: "data2-containers-app-1-container-1--data2"
-              mountPath: "/data2"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          ports:
-            - name: http
-              containerPort: 80
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-          livenessProbe:
-            httpGet:
-              path: /liveness
-              port: 80
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: 80
-          startupProbe:
-            httpGet:
-              path: /startup
-              port: 80
-      tolerations:
-        - key: something
-          operator: Equal
-          value: somethingelse
-      imagePullSecrets:
-        - name: registrysecret
-      volumes:
-        - name: cache-volume
-          emptyDir: {}
+      - name: "init-container-1"
+        image: alpine:3
+        env:
+        - name: "TEST1"
+          value: "val1"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-initcontainers-app-1-init-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
-          configMap:
-            name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-initcontainers-app-1-init-container-1-secret-conf"
-          secret:
-            secretName: "config-initcontainers-app-1-init-container-1-secret-conf"
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+      containers:
+      - name: "container-1"
+        image: alpine:3
+        env:
+        - name: "TEST1"
+          value: "val1"
+        - name: "TEST2"
+          value: "val2"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-containers-app-1-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-containers-app-1-container-1-nginx-conf"
-          configMap:
-            name: "config-containers-app-1-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-containers-app-1-container-1-nginx-conf2"
-          configMap:
-            name: "configmap-1"
+          subPath: "nginx.conf2"
+          mountPath: "/etc/nginx/nginx2.conf"
         - name: "config-containers-app-1-container-1-secret-conf"
-          secret:
-            secretName: "config-containers-app-1-container-1-secret-conf"
-      affinity:
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        - name: "data2-containers-app-1-container-1--data2"
+          mountPath: "/data2"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        ports: 
+        - name: http
+          containerPort: 80
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+        livenessProbe: 
+          httpGet:
+            path: /liveness
+            port: 80
+        readinessProbe: 
+          httpGet:
+            path: /readiness
+            port: 80
+        startupProbe: 
+          httpGet:
+            path: /startup
+            port: 80
+      tolerations: 
+      - key: something
+        operator: Equal
+        value: somethingelse
+      imagePullSecrets: 
+      - name: registrysecret
+      volumes: 
+      - name: cache-volume
+        emptyDir: {}
+      
+      - name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+        configMap:
+          name: "config-initcontainers-app-1-init-container-1-nginx-conf"
+      - name: "config-initcontainers-app-1-init-container-1-secret-conf"
+        secret:
+          secretName: "config-initcontainers-app-1-init-container-1-secret-conf"
+      - name: "config-containers-app-1-container-1-nginx-conf"
+        configMap:
+          name: "config-containers-app-1-container-1-nginx-conf"
+      - name: "config-containers-app-1-container-1-nginx-conf2"
+        configMap:
+          name: "configmap-1"
+      - name: "config-containers-app-1-container-1-secret-conf"
+        secret:
+          secretName: "config-containers-app-1-container-1-secret-conf"
+      affinity: 
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app: "app-1"
-                    chart: "tests"
-                    repo: ""
-                topologyKey: kubernetes.io/hostname
-              weight: 10
-      nodeSelector:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels: 
+                              
+                              app: "app-1"
+                              chart: "tests"
+                              repo: "tests"
+              topologyKey: kubernetes.io/hostname
+            weight: 10
+      nodeSelector: 
         label1: value1
         label2: value2
       dnsPolicy: "ClusterFirstWithHostNet"
       priorityClassName: "production-medium"
       terminationGracePeriodSeconds: 30
       hostNetwork: true
-  selector:
+  selector: 
     matchLabels:
+      
       app: "app-1"
   serviceName: "app-1"
   replicas: 2
@@ -1922,46 +2132,56 @@ spec:
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-stateful.stateful-simple
 
+
 apiVersion: apps/v1
 kind: StatefulSet
+
 metadata:
   name: "stateful-simple"
+  
   annotations:
     checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     helm-apps/version: "TEST"
   labels:
+    
     app: "stateful-simple"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  template:
+  
+  template: 
     metadata:
       name: "stateful-simple"
+      
       annotations:
         checksum/config: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       labels:
+        
         app: "stateful-simple"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       containers:
-        - name: "main"
-          image: REPO:TAG
-      imagePullSecrets:
-        - name: registrysecret
-      affinity:
+      - name: "main"
+        image: registry.example.com/myapp/nginx:sha256-abc123
+      imagePullSecrets: 
+      - name: registrysecret
+      affinity: 
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app: "stateful-simple"
-                topologyKey: kubernetes.io/hostname
-              weight: 10
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels: 
+                              
+                              app: "stateful-simple"
+              topologyKey: kubernetes.io/hostname
+            weight: 10
       priorityClassName: "production-medium"
       terminationGracePeriodSeconds: 60
-  selector:
+  selector: 
     matchLabels:
+      
       app: "stateful-simple"
   serviceName: "stateful-simple"
   revisionHistoryLimit: 3
@@ -1972,305 +2192,293 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "job-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   activeDeadlineSeconds: 1800
   backoffLimit: 0
-  template:
+  template: 
     metadata:
       name: "job-1"
+      
       annotations:
         testAnnotation: "testVal"
       labels:
+        
         app: "job-1"
         chart: "tests"
-        repo: ""
+        repo: "tests"
     spec:
+      
       initContainers:
-        - name: "init-container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-initcontainers-job-1-init-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-initcontainers-job-1-init-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-initcontainers-job-1-init-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-      containers:
-        - name: "container-1"
-          image: alpine:3
-          env:
-            - name: "TEST1"
-              value: "val1"
-            - name: "TEST2"
-              value: "val2"
-          envFrom:
-            - configMapRef:
-                name: env-configmap
-            - secretRef:
-                name: "envs-containers-job-1-container-1"
-          resources:
-            limits:
-              memory: 200Mi
-            requests:
-              cpu: 100m
-              memory: 200Mi
-          volumeMounts:
-            - mountPath: /cache
-              name: cache-volume
-            - name: "config-containers-job-1-container-1-nginx-conf"
-              subPath: "nginx.conf"
-              mountPath: "/etc/nginx/nginx.conf"
-            - name: "config-containers-job-1-container-1-secret-conf"
-              subPath: "secret.conf"
-              mountPath: "/etc/secret.conf"
-          args:
-            - -f
-            - /dev/null
-          command:
-            - tail
-          lifecycle:
-            preStop:
-              exec:
-                command: ["/usr/sbin/nginx", "-s", "quit"]
-      tolerations:
-        - key: something
-          operator: Equal
-          value: somethingelse
-      imagePullSecrets:
-        - name: registrysecret
-      volumes:
-        - name: cache-volume
-          emptyDir: {}
+      - name: "init-container-1"
+        image: alpine:3
+        env:
+        - name: "TEST1"
+          value: "val1"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-initcontainers-job-1-init-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-initcontainers-job-1-init-container-1-nginx-conf"
-          configMap:
-            name: "config-initcontainers-job-1-init-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-initcontainers-job-1-init-container-1-secret-conf"
-          secret:
-            secretName: "config-initcontainers-job-1-init-container-1-secret-conf"
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+      containers:
+      - name: "container-1"
+        image: alpine:3
+        env:
+        - name: "TEST1"
+          value: "val1"
+        - name: "TEST2"
+          value: "val2"
+        envFrom:
+        - configMapRef:
+            name: env-configmap
+        - secretRef:
+            name: "envs-containers-job-1-container-1"
+        
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts: 
+        - mountPath: /cache
+          name: cache-volume
         - name: "config-containers-job-1-container-1-nginx-conf"
-          configMap:
-            name: "config-containers-job-1-container-1-nginx-conf"
+          subPath: "nginx.conf"
+          mountPath: "/etc/nginx/nginx.conf"
         - name: "config-containers-job-1-container-1-secret-conf"
-          secret:
-            secretName: "config-containers-job-1-container-1-secret-conf"
-      affinity:
+          subPath: "secret.conf"
+          mountPath: "/etc/secret.conf"
+        args: 
+        - -f
+        - /dev/null
+        command: 
+        - tail
+        lifecycle: 
+          preStop:
+            exec:
+              command: ["/usr/sbin/nginx", "-s", "quit"]
+      tolerations: 
+      - key: something
+        operator: Equal
+        value: somethingelse
+      imagePullSecrets: 
+      - name: registrysecret
+      volumes: 
+      - name: cache-volume
+        emptyDir: {}
+      
+      - name: "config-initcontainers-job-1-init-container-1-nginx-conf"
+        configMap:
+          name: "config-initcontainers-job-1-init-container-1-nginx-conf"
+      - name: "config-initcontainers-job-1-init-container-1-secret-conf"
+        secret:
+          secretName: "config-initcontainers-job-1-init-container-1-secret-conf"
+      - name: "config-containers-job-1-container-1-nginx-conf"
+        configMap:
+          name: "config-containers-job-1-container-1-nginx-conf"
+      - name: "config-containers-job-1-container-1-secret-conf"
+        secret:
+          secretName: "config-containers-job-1-container-1-secret-conf"
+      affinity: 
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app: "job-1"
-                    chart: "tests"
-                    repo: ""
-                topologyKey: kubernetes.io/hostname
-              weight: 10
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                              
+                              app: "job-1"
+                              chart: "tests"
+                              repo: "tests"
+              topologyKey: kubernetes.io/hostname
+            weight: 10
       priorityClassName: "production-medium"
       restartPolicy: "Never"
       activeDeadlineSeconds: 1800
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-cronjobs.cronjob-1
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: "cronjob-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
-spec:
+    repo: "tests"
+spec:  
   schedule: "0 * * * *"
   concurrencyPolicy: "Allow"
   failedJobsHistoryLimit: 1
   startingDeadlineSeconds: 60
   successfulJobsHistoryLimit: 1
-  jobTemplate:
+  jobTemplate: 
+    
     spec:
       activeDeadlineSeconds: 1800
       backoffLimit: 0
-      template:
+      template: 
         metadata:
           name: "cronjob-1"
+          
           annotations:
             testAnnotation: "testVal"
           labels:
+            
             app: "cronjob-1"
             chart: "tests"
-            repo: ""
+            repo: "tests"
         spec:
+          
           initContainers:
-            - name: "init-container-1"
-              image: alpine:3
-              env:
-                - name: "TEST1"
-                  value: "val1"
-              envFrom:
-                - configMapRef:
-                    name: env-configmap
-                - secretRef:
-                    name: "envs-initcontainers-cronjob-1-init-container-1"
-              resources:
-                limits:
-                  memory: 200Mi
-                requests:
-                  cpu: 100m
-                  memory: 200Mi
-              volumeMounts:
-                - mountPath: /cache
-                  name: cache-volume
-                - name: "config-initcontainers-cronjob-1-init-container-1-nginx-conf"
-                  subPath: "nginx.conf"
-                  mountPath: "/etc/nginx/nginx.conf"
-                - name: "config-initcontainers-cronjob-1-init-container-1-secret-conf"
-                  subPath: "secret.conf"
-                  mountPath: "/etc/secret.conf"
-              args:
-                - -f
-                - /dev/null
-              command:
-                - tail
-              lifecycle:
-                preStop:
-                  exec:
-                    command: ["/usr/sbin/nginx", "-s", "quit"]
-          containers:
-            - name: "container-1"
-              image: alpine:3
-              env:
-                - name: "TEST1"
-                  value: "val1"
-                - name: "TEST2"
-                  value: "val2"
-              envFrom:
-                - configMapRef:
-                    name: env-configmap
-                - secretRef:
-                    name: "envs-containers-cronjob-1-container-1"
-              resources:
-                limits:
-                  memory: 200Mi
-                requests:
-                  cpu: 100m
-                  memory: 200Mi
-              volumeMounts:
-                - mountPath: /cache
-                  name: cache-volume
-                - name: "config-containers-cronjob-1-container-1-nginx-conf"
-                  subPath: "nginx.conf"
-                  mountPath: "/etc/nginx/nginx.conf"
-                - name: "config-containers-cronjob-1-container-1-secret-conf"
-                  subPath: "secret.conf"
-                  mountPath: "/etc/secret.conf"
-              args:
-                - -f
-                - /dev/null
-              command:
-                - tail
-              lifecycle:
-                preStop:
-                  exec:
-                    command: ["/usr/sbin/nginx", "-s", "quit"]
-          tolerations:
-            - key: something
-              operator: Equal
-              value: somethingelse
-          imagePullSecrets:
-            - name: registrysecret
-          volumes:
-            - name: cache-volume
-              emptyDir: {}
+          - name: "init-container-1"
+            image: alpine:3
+            env:
+            - name: "TEST1"
+              value: "val1"
+            envFrom:
+            - configMapRef:
+                name: env-configmap
+            - secretRef:
+                name: "envs-initcontainers-cronjob-1-init-container-1"
+            
+            resources:
+              limits:
+                memory: 200Mi
+              requests:
+                cpu: 100m
+                memory: 200Mi
+            volumeMounts: 
+            - mountPath: /cache
+              name: cache-volume
             - name: "config-initcontainers-cronjob-1-init-container-1-nginx-conf"
-              configMap:
-                name: "config-initcontainers-cronjob-1-init-container-1-nginx-conf"
+              subPath: "nginx.conf"
+              mountPath: "/etc/nginx/nginx.conf"
             - name: "config-initcontainers-cronjob-1-init-container-1-secret-conf"
-              secret:
-                secretName: "config-initcontainers-cronjob-1-init-container-1-secret-conf"
+              subPath: "secret.conf"
+              mountPath: "/etc/secret.conf"
+            args: 
+            - -f
+            - /dev/null
+            command: 
+            - tail
+            lifecycle: 
+              preStop:
+                exec:
+                  command: ["/usr/sbin/nginx", "-s", "quit"]
+          containers:
+          - name: "container-1"
+            image: alpine:3
+            env:
+            - name: "TEST1"
+              value: "val1"
+            - name: "TEST2"
+              value: "val2"
+            envFrom:
+            - configMapRef:
+                name: env-configmap
+            - secretRef:
+                name: "envs-containers-cronjob-1-container-1"
+            
+            resources:
+              limits:
+                memory: 200Mi
+              requests:
+                cpu: 100m
+                memory: 200Mi
+            volumeMounts: 
+            - mountPath: /cache
+              name: cache-volume
             - name: "config-containers-cronjob-1-container-1-nginx-conf"
-              configMap:
-                name: "config-containers-cronjob-1-container-1-nginx-conf"
+              subPath: "nginx.conf"
+              mountPath: "/etc/nginx/nginx.conf"
             - name: "config-containers-cronjob-1-container-1-secret-conf"
-              secret:
-                secretName: "config-containers-cronjob-1-container-1-secret-conf"
-          affinity:
+              subPath: "secret.conf"
+              mountPath: "/etc/secret.conf"
+            args: 
+            - -f
+            - /dev/null
+            command: 
+            - tail
+            lifecycle: 
+              preStop:
+                exec:
+                  command: ["/usr/sbin/nginx", "-s", "quit"]
+          tolerations: 
+          - key: something
+            operator: Equal
+            value: somethingelse
+          imagePullSecrets: 
+          - name: registrysecret
+          volumes: 
+          - name: cache-volume
+            emptyDir: {}
+          
+          - name: "config-initcontainers-cronjob-1-init-container-1-nginx-conf"
+            configMap:
+              name: "config-initcontainers-cronjob-1-init-container-1-nginx-conf"
+          - name: "config-initcontainers-cronjob-1-init-container-1-secret-conf"
+            secret:
+              secretName: "config-initcontainers-cronjob-1-init-container-1-secret-conf"
+          - name: "config-containers-cronjob-1-container-1-nginx-conf"
+            configMap:
+              name: "config-containers-cronjob-1-container-1-nginx-conf"
+          - name: "config-containers-cronjob-1-container-1-secret-conf"
+            secret:
+              secretName: "config-containers-cronjob-1-container-1-secret-conf"
+          affinity: 
             podAntiAffinity:
               preferredDuringSchedulingIgnoredDuringExecution:
-                - podAffinityTerm:
-                    labelSelector:
-                      matchLabels:
-                        app: "cronjob-1"
-                        chart: "tests"
-                        repo: ""
-                    topologyKey: kubernetes.io/hostname
-                  weight: 10
+              - podAffinityTerm:
+                  labelSelector:
+                    matchLabels:
+                                  
+                                  app: "cronjob-1"
+                                  chart: "tests"
+                                  repo: "tests"
+                  topologyKey: kubernetes.io/hostname
+                weight: 10
           priorityClassName: "production-medium"
           restartPolicy: "Never"
           activeDeadlineSeconds: 1800
----
-# Source: tests/templates/init-helm-apps-library.yaml
-# Helm Apps Library: ingress-with-dexAuth.ingress-dex-auth
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: "ingress-dex-auth"
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/auth-signin: https://$host/dex-authenticator/sign_in
-    nginx.ingress.kubernetes.io/auth-url: https://ingress-dex-auth-dex-authenticator.test-prod.svc.cluster.local/dex-authenticator/auth
-    nginx.ingress.kubernetes.io/auth-response-headers: X-Auth-Request-User,X-Auth-Request-Email,Authorization
-  labels:
-    app: "ingress-dex-auth"
-    chart: "tests"
-    repo: ""
-spec:
-  ingressClassName: nginx
-  tls:
-    - secretName: ingress-dex-auth
-  rules:
-    - host: "example.org"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: test-group.test-app-ingress
@@ -2279,22 +2487,24 @@ kind: Ingress
 metadata:
   name: "test-app-ingress"
   annotations:
+    
   labels:
+    
     app: "test-app-ingress"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   rules:
-    - host: "example.com"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
+  - host: "example.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: testService
+            port:
+              number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-ingresses.ingress-1
@@ -2305,24 +2515,26 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/auth-url: example.org
+    
   labels:
+    
     app: "ingress-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   tls:
-    - secretName: test
+  - secretName: test
   rules:
-    - host: "example.org"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
+  - host: "example.org"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: testService
+            port:
+              number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-ingresses.ingress-2
@@ -2332,22 +2544,24 @@ metadata:
   name: "ingress-2"
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    
   labels:
+    
     app: "ingress-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   rules:
-    - host: "example.org"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
+  - host: "example.org"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: testService
+            port:
+              number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-ingresses.ingress-3
@@ -2357,24 +2571,26 @@ metadata:
   name: "ingress-3"
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    
   labels:
+    
     app: "ingress-3"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   tls:
-    - secretName: ingress-3
+  - secretName: ingress-3
   rules:
-    - host: "example.org"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
+  - host: "example.org"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: testService
+            port:
+              number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-ingresses.ingress-4
@@ -2384,23 +2600,25 @@ metadata:
   name: "ingress-4"
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    
   labels:
+    
     app: "ingress-4"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   ingressClassName: nginx
   rules:
-    - host: "example.org"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: testService
-                port:
-                  number: 80
+  - host: "example.org"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: testService
+            port:
+              number: 80
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-ingresses.nginx
@@ -2410,66 +2628,59 @@ metadata:
   name: "nginx"
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    
   labels:
+    
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   tls:
-    - secretName: nginx
+  - secretName: nginx
   rules:
-    - host: "example.com"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: nginx
-                port:
-                  number: 80
+  - host: "example.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
 ---
-# Helm Apps Library: ingress-with-dexAuth.ingress-dex-auth.tls
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: ingress-dex-auth
-  annotations:
-spec:
-  secretName: ingress-dex-auth
-  issuerRef:
-    kind: ClusterIssuer
-    name: letsencrypt
-  dnsNames:
-    - "example.org"
+# Source: tests/templates/init-helm-apps-library.yaml
+# Source: apps.utils:  lib.expandIncludesInValues
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-ingresses.ingress-3.tls
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: ingress-3
-  annotations:
 spec:
   secretName: ingress-3
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
   dnsNames:
-    - "example.org"
+  - "example.org"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-ingresses.nginx.tls
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: nginx
-  annotations:
 spec:
   secretName: nginx
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
   dnsNames:
-    - "example.com"
+  - "example.com"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-certificates.custom-certificate-1
@@ -2478,16 +2689,15 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: custom-certificate-1
-  annotations:
 spec:
   secretName: custom-certificate-1
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
   dnsNames:
-    - "example.org"
-    - "example-1.org"
-    - "example-2.org"
+  - "example.org"
+  - "example-1.org"
+  - "example-2.org"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
 # Helm Apps Library: apps-certificates.custom-issuer-1
@@ -2496,147 +2706,186 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: custom-issuer-1
-  annotations:
 spec:
   secretName: custom-issuer-1
   issuerRef:
     kind: ClusterIssuer
     name: "customIssuer"
   dnsNames:
-    - "example.org"
-    - "example-1.org"
-    - "example-2.org"
+  - "example.org"
+  - "example-1.org"
+  - "example-2.org"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
-# Helm Apps Library: apps-custom-prometheus-rules.test-rule
-apiVersion: deckhouse.io/v1
-kind: CustomPrometheusRules
+# Helm Apps Library: apps-karpenter-node-class.full-class
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
 metadata:
-  labels:
-    component: rules
-    prometheus: main
-  name: test-rule
+  name: "full-class"
+  
   annotations:
+    helm-apps/version: "TEST"
+  labels:
+    
+    app: "full-class"
+    chart: "tests"
+    repo: "tests"
 spec:
-  groups:
-    - name: test-group
-      rules:
-        - alert: sentry-kafka-lag
-          for: 5m
-          expr: sum(kafka_consumergroup_lag{}) by (consumergroup, topic) > 50000
-          labels:
-            severity_level: "3"
-          annotations:
-            description: "Too many unprocessed messages in sentry in kafka in a topic"
-            summary: |-
-              Слишком много не обработанных сообщений в топиках kafka sentry
-              Проверить работу consumer топика
-            plk_markup_format: markdown
-            plk_protocol_version: "1"
-            plk_labels_as_annotations: pod,instance
-        - alert: test-alert
-          for: 5m
-          expr: sum(kafka_consumergroup_lag{}) by (consumergroup, topic) > 10000
-          labels:
-            severity_level: "4"
-          annotations:
-            description: "Too many unprocessed messages in sentry in kafka in a topic"
-            summary: |-
-              Слишком много не обработанных сообщений в топиках kafka sentry
-              Проверить работу consumer топика
-            plk_markup_format: markdown
-            plk_protocol_version: "1"
-            plk_labels_as_annotations: pod,instance
+  amiSelectorTerms: 
+  - alias: al2023@latest
+  subnetSelectorTerms: 
+  - tags:
+      karpenter.sh/discovery: my-cluster
+  securityGroupSelectorTerms: 
+  - tags:
+      karpenter.sh/discovery: my-cluster
+  blockDeviceMappings: 
+  - deviceName: /dev/xvda
+    ebs:
+      volumeSize: 100Gi
+      volumeType: gp3
+      encrypted: true
+      deleteOnTermination: true
+  capacityReservationSelectorTerms: 
+  - tags:
+      env: prod
+  role: "KarpenterNodeRole-my-cluster"
+  amiFamily: "AL2023"
+  instanceStorePolicy: "RAID0"
+  ipPrefixCount: 1
+  detailedMonitoring: true
+  associatePublicIPAddress: false
+  userData: |
+    #!/bin/bash
+    echo "hello"
+  metadataOptions:
+    httpEndpoint: "enabled"
+    httpProtocolIPv6: "disabled"
+    httpTokens: "required"
+    httpPutResponseHopLimit: 1
+  kubelet:
+    clusterDNS: 
+    - 10.0.1.100
+    podsPerCore: 2
+    maxPods: 110
+    evictionMaxPodGracePeriod: 60
+    imageGCHighThresholdPercent: 85
+    imageGCLowThresholdPercent: 80
+    cpuCFSQuota: true
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
-apiVersion: deckhouse.io/v1
-kind: DexAuthenticator
+# Helm Apps Library: apps-karpenter-node-class.minimal-class
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
 metadata:
-  name: "ingress-dex-auth"
+  name: "minimal-class"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
-    app: "ingress-dex-auth"
+    
+    app: "minimal-class"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  applicationDomain: "example.org"
-  applicationIngressCertificateSecretName: "ingress-dex-auth"
-  applicationIngressClassName: "nginx"
+  amiSelectorTerms: 
+  - alias: al2023@latest
+  subnetSelectorTerms: 
+  - tags:
+      karpenter.sh/discovery: my-cluster
+  securityGroupSelectorTerms: 
+  - tags:
+      karpenter.sh/discovery: my-cluster
+  role: "KarpenterNodeRole-my-cluster"
 ---
 # Source: tests/templates/init-helm-apps-library.yaml
-apiVersion: deckhouse.io/v1beta1
-kind: PodMetric
+# Helm Apps Library: apps-karpenter-node-pool.full-pool
+apiVersion: karpenter.sh/v1
+kind: NodePool
 metadata:
-  name: "app-with-deckhouse-metrics-mymetric-1"
+  name: "full-pool"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
-    app: "app-with-deckhouse-metrics"
+    
+    app: "full-pool"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  query: "round(sum by(<<.GroupBy>>) (phpfpm_processes_total{state=\"active\",<<.LabelMatchers>>}) / sum by(<<.GroupBy>>) (phpfpm_processes_total{<<.LabelMatchers>>}) * 100)"
+  weight: 10
+  template:
+    spec:
+      nodeClassRef:
+        group: "karpenter.k8s.aws"
+        kind: "EC2NodeClass"
+        name: "full-class"
+      requirements: 
+      - key: karpenter.sh/capacity-type
+        operator: In
+        values: ["spot", "on-demand"]
+      - key: kubernetes.io/arch
+        operator: In
+        values: ["amd64"]
+      taints: 
+      - key: dedicated
+        effect: NoSchedule
+      startupTaints: 
+      - key: startup
+        effect: NoSchedule
+      expireAfter: "720h"
+      terminationGracePeriod: "48h"
+  disruption:
+    budgets: 
+    - nodes: 10%
+    - nodes: "0"
+      schedule: "0 9 * * mon-fri"
+      duration: 8h
+    consolidationPolicy: "WhenEmptyOrUnderutilized"
+    consolidateAfter: "1m"
 ---
-# Helm Apps Library: test-hpa.hpa-app.horizontalPodAutoscaler.custom-metric-1
-apiVersion: deckhouse.io/v1beta1
-kind: "ServiceMetric"
+# Source: tests/templates/init-helm-apps-library.yaml
+# Helm Apps Library: apps-karpenter-node-pool.minimal-pool
+apiVersion: karpenter.sh/v1
+kind: NodePool
 metadata:
-  name: "custom-metric-1"
+  name: "minimal-pool"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
-    app: "custom-metric-1"
+    
+    app: "minimal-pool"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
-  query: "sum(rate(sidekiq_jobs_enqueued_total{<<.LabelMatchers>>, queue=\"default\"}[1m])) by (<<.GroupBy>>)"
+  
+  template:
+    spec:
+      nodeClassRef:
+        group: "karpenter.k8s.aws"
+        kind: "EC2NodeClass"
+        name: "minimal-class"
+      requirements: 
+      - key: karpenter.sh/capacity-type
+        operator: In
+        values: ["spot", "on-demand"]
 ---
-# Helm Apps Library: apps-stateless.app-1.horizontalPodAutoscaler.metric-1
-apiVersion: deckhouse.io/v1beta1
-kind: "ServiceMetric"
-metadata:
-  name: "metric-1"
-  annotations:
-    helm-apps/version: "TEST"
-  labels:
-    app: "metric-1"
-    chart: "tests"
-    repo: ""
-spec:
-  query: "sum(rate(sidekiq_jobs_enqueued_total{<<.LabelMatchers>>, queue=\"default\"}[1m])) by (<<.GroupBy>>)"
----
-# Helm Apps Library: apps-stateless-deckhouse-metrics.app-with-deckhouse-metrics.verticalPodAutoscaler
-apiVersion: autoscaling.k8s.io/v1
-kind: VerticalPodAutoscaler
-metadata:
-  name: "app-with-deckhouse-metrics"
-  annotations:
-    helm-apps/version: "TEST"
-  labels:
-    app: "app-with-deckhouse-metrics"
-    chart: "tests"
-    repo: ""
-spec:
-  targetRef:
-    apiVersion: "apps/v1"
-    kind: Deployment
-    name: "app-with-deckhouse-metrics"
-  updatePolicy:
-    updateMode: "Off"
-  resourcePolicy: {}
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-common-group-hook.test-app.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "test-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2644,19 +2893,24 @@ spec:
     name: "test-app"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-common-group-hook.test-app-2.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "test-app-2"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "test-app-2"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2664,19 +2918,24 @@ spec:
     name: "test-app-2"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-env-yaml.env-yaml-app.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "env-yaml-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "env-yaml-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2684,19 +2943,24 @@ spec:
     name: "env-yaml-app"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: test-hpa.hpa-app.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "hpa-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "hpa-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2704,20 +2968,25 @@ spec:
     name: "hpa-app"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.app-1.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2727,20 +2996,24 @@ spec:
     updateMode: "Auto"
   resourcePolicy:
     containerPolicies:
-      - containerName: "some-container"
-        mode: "Off"
+    - containerName: "some-container"
+      mode: "Off"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.minimum-app.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "minimum-app"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "minimum-app"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2748,19 +3021,24 @@ spec:
     name: "minimum-app"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.nginx.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "nginx"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "nginx"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2768,19 +3046,24 @@ spec:
     name: "nginx"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateless.pod-disruption-budget-integer.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "pod-disruption-budget-integer"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "pod-disruption-budget-integer"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2788,20 +3071,25 @@ spec:
     name: "pod-disruption-budget-integer"
   updatePolicy:
     updateMode: "Off"
-  resourcePolicy: {}
+  resourcePolicy:
+    {}
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.app-1.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "app-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "app-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2811,20 +3099,24 @@ spec:
     updateMode: "Off"
   resourcePolicy:
     containerPolicies:
-      - containerName: "some-container"
-        mode: "Off"
+    - containerName: "some-container"
+      mode: "Off"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-stateful.stateful-simple.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "stateful-simple"
+  
   annotations:
     helm-apps/version: "TEST"
   labels:
+    
     app: "stateful-simple"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2834,18 +3126,22 @@ spec:
     updateMode: "Off"
   resourcePolicy: {}
 ---
+# Source: tests/templates/init-helm-apps-library.yaml
+---
 # Helm Apps Library: apps-cronjobs.cronjob-1.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "cronjob-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "cronjob-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2855,21 +3151,25 @@ spec:
     updateMode: "Initial"
   resourcePolicy:
     containerPolicies:
-      - containerName: "some-container"
-        mode: "Off"
+    - containerName: "some-container"
+      mode: "Off"
+---
+# Source: tests/templates/init-helm-apps-library.yaml
 ---
 # Helm Apps Library: apps-jobs.job-1.verticalPodAutoscaler
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
   name: "job-1"
+  
   annotations:
     helm-apps/version: "TEST"
     testAnnotation: "testVal"
   labels:
+    
     app: "job-1"
     chart: "tests"
-    repo: ""
+    repo: "tests"
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -2879,5 +3179,5 @@ spec:
     updateMode: "Initial"
   resourcePolicy:
     containerPolicies:
-      - containerName: "some-container"
-        mode: "Off"
+    - containerName: "some-container"
+      mode: "Off"

@@ -2,7 +2,7 @@
 {{- $ := index . 0 }}
 {{- $relativeScope := index . 1 }}
 {{- with $relativeScope }}
-{{ include "fl.value" (list $ . .volumes) | trim | nindent 0 }}
+{{ include "lib.value" (list $ . .volumes) | trim | nindent 0 }}
 {{ include "apps-helpers.generateVolumes" (list $ .) | trim | nindent 0 }}
 {{- $_ := set . "__specName__" "volumes"}}
 {{- end }}
@@ -13,8 +13,8 @@
 {{- $relativeScope := index . 1 }}
 {{- with $relativeScope }}
 matchLabels:
-{{-  if empty (include "fl.value" (list $ . .selector)) }}
-{{- include "fl.generateSelectorLabels" (list $ . .name) | nindent 2 }}
+{{-  if empty (include "lib.value" (list $ . .selector)) }}
+{{- include "lib.generateSelectorLabels" (list $ . .name) | nindent 2 }}
 {{- else }}
 {{- .selector | nindent 2}}
 {{- end }}
@@ -26,7 +26,7 @@ matchLabels:
 {{- $ := index . 0 }}
 {{- $relativeScope := index . 1 }}
 {{- with $relativeScope }}
-{{- include "fl.value" (list $ . .service.name) }}
+{{- include "lib.value" (list $ . .service.name) }}
 {{- $_ := set . "__specName__" "serviceName"}}
 {{- end }}
 {{- end }}
@@ -35,23 +35,23 @@ matchLabels:
 {{- $ := index . 0 }}
 {{- $relativeScope := index . 1 }}
 {{- with $relativeScope }}
-{{- include "fl.value" (list $ . .volumeClaimTemplates) | nindent 0 }}
+{{- include "lib.value" (list $ . .volumeClaimTemplates) | nindent 0 }}
 {{- /* Loop through containers to generate Pod volumes */ -}}
 {{- range $_, $containersType := list "initContainers" "containers" }}
 {{- range $_containerName, $_container := index $.CurrentApp $containersType }}
-{{- if include "fl.isTrue" (list $ . .enabled) }}
+{{- if include "lib.isTrue" (list $ . .enabled) }}
 {{- $_ := set . "name" $_containerName }}
 {{- $_ = set $ "CurrentContainer" $_container }}
 {{- range $persistantVolumeName, $persistantVolume := .persistantVolumes }}
-{{- $pvcName := print $persistantVolumeName "-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $persistantVolume.mountPath | include "fl.formatStringAsDNSLabel" }}
+{{- $pvcName := print $persistantVolumeName "-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $persistantVolume.mountPath | include "lib.formatStringAsDNSLabel" }}
 - metadata:
     name: {{ $pvcName }}
   spec:
-    accessModes: {{include "fl.value" (list $ . $persistantVolume.accessModes) | default "\n- ReadWriteOnce" | nindent 4 }}
+    accessModes: {{include "lib.value" (list $ . $persistantVolume.accessModes) | default "\n- ReadWriteOnce" | nindent 4 }}
     resources:
       requests:
-        storage: {{ include "fl.value" (list $ . $persistantVolume.size) }}
-    storageClassName: {{ include "fl.value" (list $ . $persistantVolume.storageClass) }}
+        storage: {{ include "lib.value" (list $ . $persistantVolume.size) }}
+    storageClassName: {{ include "lib.value" (list $ . $persistantVolume.storageClass) }}
     volumeMode: Filesystem
 {{- end }}
 {{- end }}

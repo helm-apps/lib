@@ -1,4 +1,4 @@
-{{- define "fl.value" }}
+{{- define "lib.value" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $val := index . 2 }}
@@ -18,18 +18,18 @@
     {{- $currentEnvVal := "" }}
     {{- if hasKey $val $.Values.global.env }}
       {{- $currentEnvVal = index $val $.Values.global.env }}
-    {{- else if eq (include "_fl.getValueRegex" .) "" }}
+    {{- else if eq (include "_lib.getValueRegex" .) "" }}
       {{- $currentEnvVal = $._CurrentFuncResult }}
     {{- else if hasKey $val "_default" }}
       {{- $currentEnvVal = index $val "_default" }}
     {{- end }}
-    {{- include "fl._renderValue" (list $ $relativeScope $currentEnvVal $prefix $suffix) }}
+    {{- include "lib._renderValue" (list $ $relativeScope $currentEnvVal $prefix $suffix) }}
   {{- else }}
-    {{- include "fl._renderValue" (list $ $relativeScope $val $prefix $suffix) }}
+    {{- include "lib._renderValue" (list $ $relativeScope $val $prefix $suffix) }}
   {{- end }}
 {{- end }}
 
-{{- define "fl._renderValue" }}
+{{- define "lib._renderValue" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $val := index . 2 }}
@@ -53,7 +53,7 @@
   {{- end }}
 {{- end -}}
 
-{{- define "_fl.getValueRegex" }}
+{{- define "_lib.getValueRegex" }}
 {{-     $ := index . 0 }}
 {{-     $val := index . 2 }}
 {{-     $_ := set $ "_CurrentFuncError" "" }}
@@ -68,14 +68,14 @@
 {{-         end }}
 {{-     end }}
 {{-     if gt (len $regexList) 1 }}
-{{-         fail (printf "В переменной %s используется неоднозначное определение окружения %s" ($.CurrentPath | join ".") $regexList) }}
+{{-         fail (printf "variable %s has an ambiguous environment key matching: %s" ($.CurrentPath | join ".") $regexList) }}
 {{-     end }}
 {{-     if eq (len $regexList) 0 }}
 {{-         print "not found" }}
 {{-     end }}
 {{- end -}}
 
-{{- define "fl.Result" }}
+{{- define "lib.Result" }}
 {{- $ := index . 0 }}
 {{- $_ := set $ "_CurrentFuncResult" (index . 1) }}
 {{- $_ = set $ "_CurrentFuncError" (index . 2) }}

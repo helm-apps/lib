@@ -1,4 +1,4 @@
-{{- define "fl.formatStringAsDNSSubdomain" }}
+{{- define "lib.formatStringAsDNSSubdomain" }}
   {{- $string := . }}
 
   {{- $result := $string | lower | nospace | replace "_" "-" | replace "/" "-" | replace "\\" "-" | replace ":" "-" | replace "," "-" }}

@@ -1,2 +1,2 @@
-{{- /* Подключаем библиотеку */}}
+{{- /* Initialize the helm-apps library */}}
 {{- include "apps-utils.init-library" $ }}

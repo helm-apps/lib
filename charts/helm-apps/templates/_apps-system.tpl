@@ -1,12 +1,12 @@
 {{- define "apps-system.serviceAccount" }}
 {{- $ := . }}
 {{- with $.CurrentApp.serviceAccount }}
-{{- if include "fl.isTrue" (list $ . .enabled) }}
+{{- if include "lib.isTrue" (list $ . .enabled) }}
 {{- include "apps-utils.enterScope" (list $ "serviceAccount") }}
 {{- if not (hasKey . "name") }}
 {{- $_ := set . "name" $.CurrentApp.name }}
 {{- end }}
-{{- $serviceAccountName := include "fl.value" (list $ . .name) }}
+{{- $serviceAccountName := include "lib.value" (list $ . .name) }}
 {{- $_ := set $.CurrentApp "serviceAccountName" $serviceAccountName }}
 ---
 apiVersion: v1
@@ -32,7 +32,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ $serviceAccountName }}
-  namespace: {{ $.Values.werf.namespace }}
+  namespace: {{ $.Release.Namespace }}
 {{- include "apps-utils.leaveScope" $ }}
 {{- end }}
 {{- include "apps-utils.leaveScope" $ }}

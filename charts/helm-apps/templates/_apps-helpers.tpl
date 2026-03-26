@@ -4,50 +4,50 @@
       {{- /* Loop through containers to generate Pod volumes */ -}}
       {{- range $_, $containersType := list "initContainers" "containers" }}
       {{- range $_containerName, $_container := index $.CurrentApp $containersType }}
-      {{- if include "fl.isTrue" (list $ . .enabled) }}
+      {{- if include "lib.isTrue" (list $ . .enabled) }}
       {{- $_ := set . "name" $_containerName }}
       {{- $_ = set $ "CurrentContainer" $_container }}
       {{- /* Mount ConfigMaps created by "configFiles:" option as volumes */ -}}
       {{- range $configFileName, $_ := .configFiles }}
-      {{- if include "fl.value" (list $ . .content) }}
-      {{- $_ := set . "name" (print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel") }}
+      {{- if include "lib.value" (list $ . .content) }}
+      {{- $_ := set . "name" (print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel") }}
       {{- else }}
-      {{- if not ( include "fl.value" (list $ . .name)) }}
-      {{- fail (printf "Для app '%s' %s '%s' в configFiles '%s' нет content и забыли указать .name" $.CurrentApp.name $containersType $.CurrentContainer.name $configFileName) }}
+      {{- if not ( include "lib.value" (list $ . .name)) }}
+      {{- fail (printf "app '%s': %s container '%s' has a configFiles entry '%s' with no content and no .name specified" $.CurrentApp.name $containersType $.CurrentContainer.name $configFileName) }}
       {{- end }}
       {{- end }}
-- name: {{ print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel" | quote }}
+- name: {{ print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel" | quote }}
   configMap:
     name: {{ .name | quote }}
-      {{- with include "fl.value" (list $ . .defaultMode) }}
+      {{- with include "lib.value" (list $ . .defaultMode) }}
     defaultMode: {{ . }}
       {{- end }}
       {{- end }}
       {{- range $configFileName, $_ := .configFilesYAML }}
       {{- if kindIs "map" .content }}
-      {{- $_ := set . "name" (print "config-yaml-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel") }}
+      {{- $_ := set . "name" (print "config-yaml-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel") }}
       {{- else }}
-      {{- if not ( include "fl.value" (list $ . .name)) }}
-      {{- fail (printf "Для app '%s' %s '%s' в configFiles '%s' нет content и забыли указать .name" $.CurrentApp.name $containersType $.CurrentContainer.name $configFileName) }}
+      {{- if not ( include "lib.value" (list $ . .name)) }}
+      {{- fail (printf "app '%s': %s container '%s' has a configFiles entry '%s' with no content and no .name specified" $.CurrentApp.name $containersType $.CurrentContainer.name $configFileName) }}
       {{- end }}
       {{- end }}
-- name: {{ print "config-yaml-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel" | quote }}
+- name: {{ print "config-yaml-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel" | quote }}
   configMap:
     name: {{ .name | quote }}
-      {{- with include "fl.value" (list $ . .defaultMode) }}
+      {{- with include "lib.value" (list $ . .defaultMode) }}
     defaultMode: {{ . }}
       {{- end }}
       {{- end }}
       {{- /* Mount Secrets created by "secretConfigFiles:" option as volumes */ -}}
       {{- range $secretConfigFileName, $_ := .secretConfigFiles }}
-      {{- if include "fl.value" (list $ . .content) }}
-      {{- $_ := set . "name" (print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "fl.formatStringAsDNSLabel") }}
+      {{- if include "lib.value" (list $ . .content) }}
+      {{- $_ := set . "name" (print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "lib.formatStringAsDNSLabel") }}
       {{- end }}
-      {{- if or (include "fl.value" (list $ . .content)) (include "fl.value" (list $ . .name)) }}
-- name: {{ print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "fl.formatStringAsDNSLabel" | quote }}
+      {{- if or (include "lib.value" (list $ . .content)) (include "lib.value" (list $ . .name)) }}
+- name: {{ print "config-" $containersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "lib.formatStringAsDNSLabel" | quote }}
   secret:
     secretName: {{ .name | quote }}
-    {{- with include "fl.value" (list $ . .defaultMode) }}
+    {{- with include "lib.value" (list $ . .defaultMode) }}
     defaultMode: {{ . }}
     {{- end }}
       {{- end }}
@@ -62,28 +62,28 @@
     {{- $ := index . 0 }}
     {{- $RelatedScope := index . 1 }}
     {{- range $configFileName, $configFile := $.CurrentContainer.configFiles }}
-    {{- if or (include "fl.value" (list $ . .content)) (include "fl.value" (list $ . .name)) }}
-- name: {{ print "config-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel" | quote }}
+    {{- if or (include "lib.value" (list $ . .content)) (include "lib.value" (list $ . .name)) }}
+- name: {{ print "config-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel" | quote }}
   subPath: {{ $configFileName | quote }}
-  mountPath: {{ include "fl.valueQuoted" (list $ . .mountPath) }}
+  mountPath: {{ include "lib.valueQuoted" (list $ . .mountPath) }}
     {{- end }}
     {{- end }}
     {{- range $configFileName, $configFile := $.CurrentContainer.configFilesYAML }}
-    {{- if or (kindIs "map" .content) (include "fl.value" (list $ . .name)) }}
-- name: {{ print "config-yaml-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "fl.formatStringAsDNSLabel" | quote }}
+    {{- if or (kindIs "map" .content) (include "lib.value" (list $ . .name)) }}
+- name: {{ print "config-yaml-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $configFileName | include "lib.formatStringAsDNSLabel" | quote }}
   subPath: {{ $configFileName | quote }}
-  mountPath: {{ include "fl.valueQuoted" (list $ . .mountPath) }}
+  mountPath: {{ include "lib.valueQuoted" (list $ . .mountPath) }}
     {{- end }}
     {{- end }}
     {{- /* Mount secret files from ConfigMaps created by "secretConfigFiles:" option */ -}}
     {{- range $secretConfigFileName, $secretConfigFile := $.CurrentContainer.secretConfigFiles }}
-- name: {{ print "config-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "fl.formatStringAsDNSLabel" | quote }}
+- name: {{ print "config-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $secretConfigFileName | include "lib.formatStringAsDNSLabel" | quote }}
   subPath: {{ $secretConfigFileName | quote }}
-  mountPath: {{ include "fl.valueQuoted" (list $ . .mountPath) }}
+  mountPath: {{ include "lib.valueQuoted" (list $ . .mountPath) }}
     {{- end }}
     {{- /* Mount persistantVolumes */ -}}
     {{- range $persistantVolumeName, $persistantVolume := $.CurrentContainer.persistantVolumes }}
-    {{- $pvcName := print $persistantVolumeName "-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $persistantVolume.mountPath | include "fl.formatStringAsDNSLabel" }}
+    {{- $pvcName := print $persistantVolumeName "-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" $.CurrentContainer.name "-" $persistantVolume.mountPath | include "lib.formatStringAsDNSLabel" }}
 - name: {{ $pvcName | quote }}
   mountPath: {{ $persistantVolume.mountPath | quote }}
     {{- end }}
@@ -100,11 +100,11 @@
     {{- if not (hasKey . "enabled") }}
     {{- $_ := set . "enabled" true }}
     {{- end }}
-    {{- if include "fl.isTrue" (list $ . .enabled) }}
+    {{- if include "lib.isTrue" (list $ . .enabled) }}
     {{- $_ := set . "name" $_containerName }}
     {{- $_ = set $ "CurrentContainer" $_container }}
-- name: {{ include "fl.valueQuoted" (list $ . .name) }}
-  image: {{ include "fl.generateContainerImageQuoted" (list $ . .image) }}
+- name: {{ include "lib.valueQuoted" (list $ . .name) }}
+  image: {{ include "lib.generateContainerImageQuoted" (list $ . .image) }}
   {{- with (include "apps-helpers.genereteContainersEnv" (list $ .) | trim) }}
   env:
     {{- . | nindent 2 }}
@@ -113,12 +113,12 @@
   envFrom:
     {{- . | nindent 2 }}
   {{- end }}
-  {{- $resources := include "fl.generateContainerResources" (list $ . .resources) | trim }}
+  {{- $resources := include "lib.generateContainerResources" (list $ . .resources) | trim }}
   {{ with $resources }}
   resources:
     {{- . | nindent 4 }}
   {{- end }}
-  {{- $volumeMounts := include "fl.value" (list $ . .volumeMounts) | trim }}
+  {{- $volumeMounts := include "lib.value" (list $ . .volumeMounts) | trim }}
   {{- $volumeMounts = list $volumeMounts (include "apps-helpers.generateVolumeMounts" (list $ .) | trim) | join "\n" | trim }}
   {{- with $volumeMounts }}
   volumeMounts: {{ print $volumeMounts | trim | nindent 2}}
@@ -177,7 +177,7 @@ spec:
     {{- $ := index . 0 }}
     {{- $RelatedScope := index . 1 }}
     {{- with $RelatedScope }}
-    {{- if include "fl.isTrue" (list $ . $.CurrentApp.alwaysRestart) }}
+    {{- if include "lib.isTrue" (list $ . $.CurrentApp.alwaysRestart) }}
     {{- $_ := set .envVars "FL_APP_ALWAYS_RESTART" (randAlphaNum 20) }}
     {{- end }}
     {{- if kindIs "map" .envYAML }}
@@ -187,10 +187,10 @@ spec:
     {{- include "apps-utils.leaveScope" $ }}
     {{- end }}
     {{- include "apps.generateContainerEnvVars" (list $ . .envVars) | trim | nindent 0 }}
-    {{- with (include "fl.value" (list $ . .env) | trim) }}
+    {{- with (include "lib.value" (list $ . .env) | trim) }}
     {{- . | nindent 0}}
     {{- end }}
-    {{- with (include "fl.generateContainerFromSecretsEnvVars" (list $ . .fromSecretsEnvVars) | trim) }}
+    {{- with (include "lib.generateContainerFromSecretsEnvVars" (list $ . .fromSecretsEnvVars) | trim) }}
     {{- . | nindent 0 }}
     {{- end }}
 
@@ -200,11 +200,11 @@ spec:
     {{- $ := index . 0 }}
     {{- $RelatedScope := index . 1 }}
     {{- with $RelatedScope }}
-    {{- include "fl.value" (list $ . .envFrom) | trim | nindent 0 }}
+    {{- include "lib.value" (list $ . .envFrom) | trim | nindent 0 }}
     {{- /* Mount envs from Secret created by "secretEnvVars:" option */ -}}
-    {{- if include "fl.generateSecretEnvVars" (list $ . .secretEnvVars) }}
+    {{- if include "lib.generateSecretEnvVars" (list $ . .secretEnvVars) }}
 - secretRef:
-    name: {{ print "envs-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" .name | include "fl.formatStringAsDNSLabel" | quote }}
+    name: {{ print "envs-" $.CurrentApp._currentContainersType "-" $.CurrentApp.name "-" .name | include "lib.formatStringAsDNSLabel" | quote }}
     {{- end }}
     {{- end }}
 {{- end }}
@@ -233,9 +233,6 @@ spec:
 {{- if hasKey . "__annotations__" }}
 {{- $annotationsMap = $.CurrentApp.__annotations__ | mustDeepCopy }}
 {{- end }}
-{{- if hasKey $.CurrentApp "werfWeight" }}
-{{- $_ := set $libAnnotations "werf.io/weight" (include "fl.value" (list $ . $.CurrentApp.werfWeight)) }}
-{{- end }}
 {{- $libVersion := include "apps-version.getLibraryVersion" $ | trim }}
 {{- with $libVersion }}
 {{- if not (eq . "_FLANT_APPS_LIBRARY_VERSION_") }}
@@ -244,8 +241,8 @@ spec:
 {{- end }}
 {{- end }}
 {{- end }}
-{{- $userAnnotations := fromYaml (include "fl.value" (list $ . $.CurrentApp.annotations)) }}
-{{- $relatedScopeAnnotations := fromYaml (include "fl.value" (list $ . .annotations)) }}
+{{- $userAnnotations := fromYaml (include "lib.value" (list $ . $.CurrentApp.annotations)) }}
+{{- $relatedScopeAnnotations := fromYaml (include "lib.value" (list $ . .annotations)) }}
 {{- $annotationsMap = mergeOverwrite $annotationsMap $userAnnotations  $relatedScopeAnnotations $libAnnotations }}
   {{- if gt (len $annotationsMap) 0 }}
 annotations:
@@ -262,14 +259,14 @@ annotations:
 {{- with $RelatedScope }}
 metadata:
   {{- if hasKey . "name" }}
-  name: {{ include "fl.value" (list $ . .name) | quote }}
+  name: {{ include "lib.value" (list $ . .name) | quote }}
   {{- else }}
   name: {{ $.CurrentApp.name | quote }}
   {{- end }}
   {{- include "apps-helpers.generateAnnotations" (list $ .) | nindent 2 }}
   labels:
-  {{- include "fl.generateLabels" (list $ . $.CurrentApp.name) | nindent 4 }}
-  {{- with include "fl.value" (list $ . .labels) }}
+  {{- include "lib.generateLabels" (list $ . $.CurrentApp.name) | nindent 4 }}
+  {{- with include "lib.value" (list $ . .labels) }}
     {{- . | nindent 4 }}
   {{- end }}
 {{- end }}
@@ -281,7 +278,7 @@ metadata:
 {{- include "apps-utils.enterScope" (list $ "metrics") }}
 {{- with $RelatedScope }}
 {{- range $metricName, $metric := .horizontalPodAutoscaler.metrics }}
-{{- if include "fl.isTrue" (list $ $RelatedScope .enabled) }}
+{{- if include "lib.isTrue" (list $ $RelatedScope .enabled) }}
 {{- include "apps-utils.enterScope" (list $ $metricName) }}
 {{- if has $metricName (list "cpu" "memory") }}
 - type: Resource
@@ -353,7 +350,7 @@ metadata:
     {{- $val = index $CurrentDict $.Values.global.env }}
     {{- end }}
     {{- if kindIs "string" $val }}
-    {{- $_ := set $content $CurrentKey (include "fl.value" (list $ . $CurrentDict))}}
+    {{- $_ := set $content $CurrentKey (include "lib.value" (list $ . $CurrentDict))}}
     {{- else }}
     {{- $_ := set $content $CurrentKey  $val }}
     {{- end }}

@@ -1,4 +1,4 @@
-{{- define "fl.generateContainerFromSecretsEnvVars" }}
+{{- define "lib.generateContainerFromSecretsEnvVars" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $envsFromSecret := index . 2 }}

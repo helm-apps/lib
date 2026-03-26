@@ -1,73 +1,148 @@
-## Репозиторий библиотеки для развертывания приложений в Kubernetes.
-1. Позволяет:
-   *  упростить структуру описания приложения.
-   *  переиспользовать шаблоны одного приложения для множества других
-2. Ускоряет:
-   * процесс ревью изменений приложения за счет стандартизирования подхода и уменьшению количества кода.
-   * развертывание новых приложений за счет лаконичного синтаксиса, сокращения повторяемого кода
-   * редактирование и добавление новых ресурсов к приложению
-3. Упрощает:
-   * работу с сущностями Kubernetes (не нужно описывать все поля приложения, не нужно думать как правильно выглядит конструкции сущностей).
-   * связывание сущностей Kubernetes за счет использования хелперов
+# helm-apps
 
->  :warning: **На данный момент корректная работа чартов гарантируется только с утилитой** [**Werf**](https://werf.io)
+A Helm library chart that generates complete Kubernetes manifests from a concise `values.yaml` configuration using a macro system.
 
-## Для подключения библиотеки необходимо:
-### Инструкция по использованию
-#### Использовать пример:
-* Скопировать содержимое папки [docs/example](/docs/example) в корень нового проекта
-* настроить файлы под свой проект
-#### Вручную:
-* Добавить в .gitlab-ci.yml строку подключения библиотеки общих чартов
-  ```bash
-     werf helm repo add --force-update  helm-apps https://flant.github.io/helm-apps
-  ```
-  + к примеру так:
-    ```yaml
-    before_script:
-    - type trdl && source $(trdl use werf ${WERF_VERSION:-1.2 ea})
-    - type werf && source $(werf ci-env gitlab --as-file)
-    - werf helm repo add --force-update  helm-apps https://flant.github.io/helm-apps
-    ```
-    у себя на компьютере добавляем репозиторий helm-apps:
-    ```yaml
-    werf helm repo add --force-update  helm-apps https://flant.github.io/helm-apps
-    ```
-    и обновляем зависимости:
-    ```yaml
-    werf helm dependency update .helm
-    ```
-* Добавить в папку .helm/templates файл [init-helm-apps.yaml](tests/.helm/templates/init-helm-apps.yaml) для инициализаци библиотеки, содержимое файла:
-  ```yaml
-    {{- /* Подключаем библиотеку */}}
-    {{- include "apps-utils.init-library" $ }}
-  ```
-* В Chart.yaml в секцию **dependencies**:
-  ```yaml
-  apiVersion: v2
-  name: test-app
-  version: 1.0.0
-  dependencies:
-  - name: helm-apps
-    version: ~1
-    repository: "@helm-apps"
-  ```
-* В [values.yaml](docs/example/.helm/values.yaml) отредактировать секцию global._includes с параметрами по умолчанию для хелперов.
+## Features
 
-На данный момент актуальная документация находится в файле  [tests/.helm/values.yaml](tests/.helm/values.yaml). Ведется дополнительная работа над созданием расширенной версии документации.
+- **Simplified manifest structure** — declare applications with a fraction of the YAML required by raw Kubernetes resources
+- **Config reuse via `_include`** — merge reusable configuration blocks into any resource definition, eliminating duplication across environments and apps
+- **Per-environment overrides** — any field can carry a `_default` value plus environment-specific overrides resolved at render time via `global.env`
+- **Go template interpolation** — field values support Go template expressions with access to `$.Values`, `$.Release`, and `$.CurrentApp`
+- **Comprehensive resource generation** — Deployments, StatefulSets, CronJobs, Jobs, ConfigMaps, Secrets, Services, Ingresses, Certificates, PVCs, PodDisruptionBudgets, HorizontalPodAutoscalers, VerticalPodAutoscalers, LimitRanges, and Karpenter NodePools/EC2NodeClasses
 
-[О хелперах]( docs/usage.md)
+## Quick Start
 
-## Пример простейшего деплоймента Nginx на библиотеке:
-<details>
-<summary>values.yaml секция приложений</summary>
+### 1. Add the repository and declare the dependency
+
+```bash
+helm repo add helm-apps https://flant.github.io/helm-apps
+helm dependency update .helm
+```
+
+```yaml
+# .helm/Chart.yaml
+apiVersion: v2
+name: myapp
+version: 1.0.0
+dependencies:
+- name: helm-apps
+  version: "~1"
+  repository: "https://flant.github.io/helm-apps"
+```
+
+### 2. Initialize the library
+
+Create `.helm/templates/init-helm-apps-library.yaml` with:
+
+```yaml
+{{- /* Initialize the helm-apps library */}}
+{{- include "apps-utils.init-library" $ }}
+```
+
+### 3. Declare your applications in `values.yaml`
+
+All resource declarations live under top-level keys such as `apps-stateless`, `apps-ingresses`, etc. See the [example below](#example-nginx-deployment--ingress) and the [resource type table](#available-resource-types) for the full list.
+
+## Core Concepts
+
+### `lib.value` and per-environment overrides
+
+Every field in `values.yaml` is processed by the `lib.value` function. This means any scalar field can be written in one of three forms:
+
+```yaml
+# Plain value — used for all environments
+replicas: 2
+
+# Explicit default — equivalent to the plain form
+replicas:
+  _default: 2
+
+# Default with environment-specific override
+replicas:
+  _default: 2
+  prod: 5
+```
+
+The active environment is set at render time by `global.env` (e.g. `--set "global.env=prod"`). If `global.env` matches a key, that value is used; otherwise `_default` is used.
+
+Environment keys support regular expressions:
+
+```yaml
+priorityClassName:
+  _default: "low-priority"
+  prod: "production-high"
+  "staging|review": "staging-medium"
+```
+
+### Go template interpolation
+
+Any scalar field value that contains `{{` is rendered as a Go template:
 
 ```yaml
 global:
   ci_url: example.com
-# ...
+
 apps-stateless:
-  # Приложение из примера в документации
+  frontend:
+    containers:
+      nginx:
+        configFiles:
+          default.conf:
+            mountPath: /etc/nginx/conf.d/default.conf
+            content: |
+              server_name {{ $.Values.global.ci_url }};
+```
+
+Available template variables include `$.Values`, `$.Release.Namespace`, `$.Release.Name`, and `$.CurrentApp.name` (the key under the `apps-*` section).
+
+### Config reuse with `_include`
+
+Reusable configuration blocks are defined under `global._includes` and referenced anywhere with `_include: ["block-name"]`. Keys defined alongside `_include` override keys from the included block:
+
+```yaml
+global:
+  _includes:
+    my-defaults:
+      replicas: 2
+      imagePullSecrets: |
+        - name: registrysecret
+
+apps-stateless:
+  frontend:
+    _include: ["my-defaults"]
+    replicas: 5          # overrides the included value of 2
+```
+
+Includes can be chained — a block may itself contain an `_include`.
+
+### Raw YAML strings for lists and maps
+
+Fields that accept lists or maps (such as `ports`, `volumes`, `affinity`, `strategy`) must be written as YAML block scalars using `|`. The string is inserted verbatim into the generated manifest without further parsing:
+
+```yaml
+# Correct
+ports: |
+  - name: http
+    containerPort: 80
+
+# Incorrect — will not be processed correctly
+ports:
+  - name: http
+    containerPort: 80
+```
+
+JSON-style inline lists and maps are not supported for these fields.
+
+## Example: Nginx Deployment + Ingress
+
+```yaml
+global:
+  ci_url: example.com
+
+  _includes:
+    _include_from_file: helm-apps-defaults.yaml
+
+apps-stateless:
   nginx:
     _include: ["apps-stateless-defaultApp"]
     replicas: 1
@@ -75,6 +150,7 @@ apps-stateless:
       nginx:
         image:
           name: nginx
+          staticTag: "latest"
         ports: |
           - name: http
             containerPort: 80
@@ -84,19 +160,16 @@ apps-stateless:
             content: |
               server {
                 listen         80 default_server;
-                listen         [::]:80 default_server;
-                server_name    {{ $.Values.global.ci_url }} {{ $.Values.global.ci_url }};
+                server_name    {{ $.Values.global.ci_url }};
                 root           /var/www/{{ $.Values.global.ci_url }};
                 index          index.html;
-                try_files $uri /index.html;
                 location / {
                   proxy_set_header Authorization "Bearer ${SECRET_TOKEN}";
-                  proxy_pass_header Authorization;
                   proxy_pass https://backend:3000;
                 }
               }
         secretEnvVars:
-          SECRET_TOKEN: "!!!secret-token-for-backend!!!"
+          SECRET_TOKEN: "my-secret-token"
     service:
       enabled: true
       ports: |
@@ -106,7 +179,7 @@ apps-stateless:
 apps-ingresses:
   nginx:
     _include: ["apps-ingresses-defaultIngress"]
-    host:  '{{ $.Values.global.ci_url }}'
+    host: '{{ $.Values.global.ci_url }}'
     paths: |
       - path: /
         pathType: Prefix
@@ -118,24 +191,20 @@ apps-ingresses:
     tls:
       enabled: true
 ```
-</details>
+
 <details>
-<summary>Сгенерирует следующее...</summary>
+<summary>Generated Kubernetes manifests</summary>
 
 ```yaml
 # Helm Apps Library: apps-stateless.nginx.podDisruptionBudget
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: "nginx"
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
 spec:
   selector:
     matchLabels:
@@ -149,15 +218,11 @@ metadata:
   name: "envs-containers-nginx-nginx"
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
 type: Opaque
 data:
-  "SECRET_TOKEN": "ISEhc2VjcmV0LXRva2VuLWZvci1iYWNrZW5kISEh"
+  "SECRET_TOKEN": "bXktc2VjcmV0LXRva2Vu"
 ---
 # Helm Apps Library: apps-stateless.nginx.containers.nginx.configFiles.default.conf
 apiVersion: v1
@@ -166,24 +231,17 @@ metadata:
   name: "config-containers-nginx-nginx-default-conf"
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
 data:
   "default.conf": |
     server {
       listen         80 default_server;
-      listen         [::]:80 default_server;
-      server_name    example.com example.com;
+      server_name    example.com;
       root           /var/www/example.com;
       index          index.html;
-      try_files $uri /index.html;
       location / {
         proxy_set_header Authorization "Bearer ${SECRET_TOKEN}";
-        proxy_pass_header Authorization;
         proxy_pass https://backend:3000;
       }
     }
@@ -195,12 +253,8 @@ metadata:
   name: "nginx"
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
 spec:
   selector:
     app: "nginx"
@@ -208,22 +262,23 @@ spec:
     - name: http
       port: 80
 ---
-# Source: tests/templates/init-flant-apps-library.yaml
 # Helm Apps Library: apps-stateless.nginx
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "nginx"
   annotations:
-    checksum/config: "19812d5210967fd69097dc991263af171c4071ebb455357bd49be2a0ca05acdd"
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
+    checksum/config: "a1b2c3d4e5f6..."
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
 spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: "nginx"
   strategy:
     rollingUpdate:
       maxSurge: 20%
@@ -231,41 +286,33 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      name: "nginx"
-      annotations:
-        checksum/config: "19812d5210967fd69097dc991263af171c4071ebb455357bd49be2a0ca05acdd"
       labels:
         app: "nginx"
-        chart: "tests"
+        chart: "myapp"
         repo: ""
+      annotations:
+        checksum/config: "a1b2c3d4e5f6..."
     spec:
+      imagePullSecrets:
+        - name: registrysecret
       containers:
         - name: "nginx"
-          image: REPO:TAG
+          image: "nginx:latest"
           envFrom:
             - secretRef:
                 name: "envs-containers-nginx-nginx"
-          resources:
+          ports:
+            - name: http
+              containerPort: 80
           volumeMounts:
             - name: "config-containers-nginx-nginx-default-conf"
               subPath: "default.conf"
               mountPath: "/etc/nginx/templates/default.conf.template"
-          ports:
-            - name: http
-              containerPort: 80
-      imagePullSecrets:
-        - name: registrysecret
       volumes:
         - name: "config-containers-nginx-nginx-default-conf"
           configMap:
             name: "config-containers-nginx-nginx-default-conf"
-  selector:
-    matchLabels:
-      app: "nginx"
-  revisionHistoryLimit: 3
-  replicas: 1
 ---
-# Source: tests/templates/init-flant-apps-library.yaml
 # Helm Apps Library: apps-ingresses.nginx
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -273,12 +320,9 @@ metadata:
   name: "nginx"
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
 spec:
   tls:
@@ -300,10 +344,10 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: nginx
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
+  labels:
+    app: "nginx"
+    chart: "myapp"
+    repo: ""
 spec:
   secretName: nginx
   issuerRef:
@@ -319,12 +363,8 @@ metadata:
   name: "nginx"
   labels:
     app: "nginx"
-    chart: "tests"
+    chart: "myapp"
     repo: ""
-  annotations:
-    project.werf.io/env: ""
-    project.werf.io/name: test
-    werf.io/version: v1.2.162
 spec:
   targetRef:
     apiVersion: "apps/v1"
@@ -334,10 +374,60 @@ spec:
     updateMode: "Off"
   resourcePolicy: {}
 ```
+
 </details>
 
-Самостоятельно можно отрендерить следующей командой:
+## Available Resource Types
+
+| `values.yaml` key | Kubernetes resource(s) generated |
+|---|---|
+| `apps-stateless` | Deployment, Service, PodDisruptionBudget, HorizontalPodAutoscaler, VerticalPodAutoscaler, ConfigMaps (configFiles), Secrets (secretEnvVars / secretConfigFiles) |
+| `apps-stateful` | StatefulSet, Service (headless), PodDisruptionBudget, VerticalPodAutoscaler, ConfigMaps, Secrets |
+| `apps-cronjobs` | CronJob, VerticalPodAutoscaler, ConfigMaps, Secrets |
+| `apps-jobs` | Job, VerticalPodAutoscaler, ConfigMaps, Secrets |
+| `apps-configmaps` | ConfigMap |
+| `apps-secrets` | Secret |
+| `apps-ingresses` | Ingress, Certificate (cert-manager, when `tls.enabled: true`) |
+| `apps-certificates` | Certificate (cert-manager) |
+| `apps-services` | Service |
+| `apps-pvcs` | PersistentVolumeClaim |
+| `apps-limit-range` | LimitRange |
+| `apps-karpenter-node-pool` | NodePool (karpenter.sh/v1) |
+| `apps-karpenter-node-class` | EC2NodeClass (karpenter.k8s.aws/v1) |
+
+## Defaults and Includes
+
+### `global._includes` and `helm-apps-defaults.yaml`
+
+Shared defaults are typically declared in a separate file (conventionally `.helm/helm-apps-defaults.yaml`) and loaded via:
+
+```yaml
+global:
+  _includes:
+    _include_from_file: helm-apps-defaults.yaml
+```
+
+This file defines named include blocks such as `apps-stateless-defaultApp`, `apps-cronjobs-defaultCronJob`, etc. that set sensible defaults for each resource type. Any project-level `values.yaml` entry that carries `_include: ["apps-stateless-defaultApp"]` will inherit all of those defaults and can selectively override individual keys.
+
+### `_include_from_file` for nested includes
+
+A named include block can itself load from a file:
+
+```yaml
+global:
+  _includes:
+    my-block:
+      _include_from_file: config/my-block.yaml
+```
+
+This is useful for splitting large include blocks into separate files that can be maintained independently.
+
+## Rendering for Development
+
+To render templates locally against a specific environment:
 
 ```bash
-$ cd tests && werf render --dev --set "apps-ingresses.nginx.enabled=true" --set "apps-stateless.nginx.enabled=true"
+helm template myapp .helm --namespace myns --set "global.env=prod"
 ```
+
+Omit `--set "global.env=..."` (or set it to an empty string) to use `_default` values for all fields.

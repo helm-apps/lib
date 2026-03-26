@@ -1,4 +1,4 @@
-{{- define "fl.generateContainerEnvVars" }}
+{{- define "lib.generateContainerEnvVars" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $envs := index . 2 }}

@@ -13,7 +13,7 @@
 {{- $_ := set $ "CurrentCronJob" $.CurrentApp }}
 {{- with $.CurrentApp }}
 {{- if not .containers }}
-{{- fail (printf "Установлено значение enabled для не настроенной '%s' в %s джобы!" $.CurrentApp.name "apps-cronjobs") }}
+{{- fail (printf "'%s' is enabled in apps-cronjobs but has no containers configured" $.CurrentApp.name) }}
 {{- end }}
 {{- if semverCompare ">=1.21-0" $.Capabilities.KubeVersion.GitVersion }}
 apiVersion: batch/v1

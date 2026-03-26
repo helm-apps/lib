@@ -1,4 +1,4 @@
-{{- define "fl.generateSecretData" }}
+{{- define "lib.generateSecretData" }}
   {{- $ := index . 0 }}
   {{- $relativeScope := index . 1 }}
   {{- $data := index . 2 }}

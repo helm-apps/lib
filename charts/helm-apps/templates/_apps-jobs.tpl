@@ -14,7 +14,7 @@
 {{- with $.CurrentApp }}
 
 {{- if not .containers }}
-{{- fail (printf "Установлено значение enabled для не настроенной '%s' в %s джобы!" $.CurrentApp.name "apps-jobs") }}
+{{- fail (printf "'%s' is enabled in apps-jobs but has no containers configured" $.CurrentApp.name) }}
 {{- end }}
 apiVersion: batch/v1
 kind: Job

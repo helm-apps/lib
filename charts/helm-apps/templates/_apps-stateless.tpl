@@ -11,11 +11,11 @@
 {{- $ := . }}
 {{- with $.CurrentApp }}
 {{- if kindIs "invalid" .containers }}
-{{- fail (printf "Установлено значение enabled для не настроенного '%s' в %s приложения!" $.CurrentApp.name "apps-stateless") }}
+{{- fail (printf "'%s' is enabled in apps-stateless but has no containers configured" $.CurrentApp.name) }}
 {{- end }}
 {{/* Defaults values */}}
 {{- if .service }}
-{{- if include "fl.isTrue" (list $ . .service.enabled) }}
+{{- if include "lib.isTrue" (list $ . .service.enabled) }}
 {{- if not .service.name }}
 {{- $_ := set .service "name" .name }}
 {{- end }}
@@ -48,8 +48,6 @@ spec:
 {{- include "apps-components.verticalPodAutoscaler" (list $ . .verticalPodAutoscaler "Deployment") }}
 
 {{- include "apps-components.horizontalPodAutoscaler" (list $ . "Deployment") -}}
-
-{{- include "apps-deckhouse.metrics" $ -}}
 
 {{ $serviceAccount -}}
 

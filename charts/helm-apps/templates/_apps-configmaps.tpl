@@ -23,7 +23,7 @@ kind: ConfigMap
 {{- $data = printf "%s\n%s" $data . | trim }}
 {{- end }}
 {{- else }}
-{{- with include "fl.value" (list $ . .data) }}
+{{- with include "lib.value" (list $ . .data) }}
 {{- $data = printf "%s\n%s" $data . | trim }}
 {{- end }}
 {{- end }}
@@ -31,7 +31,7 @@ kind: ConfigMap
 data:
 {{- . | nindent 2 }}
 {{- end }}
-{{ with include "fl.value" (list $ . .binaryData) }}
+{{ with include "lib.value" (list $ . .binaryData) }}
 binaryData:
 {{- . | nindent 2 }}
 {{- end }}

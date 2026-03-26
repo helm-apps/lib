@@ -14,13 +14,13 @@
 apiVersion: v1
 kind: Secret
 {{- include "apps-helpers.metadataGenerator" (list $ .) }}
-type: {{- include "fl.value" (list $ . .type) | default "Opaque" | nindent 2 }}
+type: {{- include "lib.value" (list $ . .type) | default "Opaque" | nindent 2 }}
 data:
-{{- if (include "fl.value" (list $ . .data)) }}
-{{- include "fl.value" (list $ . .data) | nindent 2}}
+{{- if (include "lib.value" (list $ . .data)) }}
+{{- include "lib.value" (list $ . .data) | nindent 2}}
 {{- else }}
-{{- include "fl.generateSecretEnvVars" (list $ . .envVars) | nindent 2 }}
-{{- include "fl.generateSecretData" (list $ . .data) | nindent 2 }}
+{{- include "lib.generateSecretEnvVars" (list $ . .envVars) | nindent 2 }}
+{{- include "lib.generateSecretData" (list $ . .data) | nindent 2 }}
 {{- end }}
 
 {{- end }}
