@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>helm-apps/lib — Helm Library Chart</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: #58a6ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      border-bottom: 1px solid #21262d;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+
+    .logo svg { color: #58a6ff; }
+
+    hero {
+      display: block;
+      padding: 64px 0 48px;
+      text-align: center;
+    }
+
+    hero h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    hero h1 span { color: #58a6ff; }
+
+    hero p {
+      font-size: 18px;
+      color: #8b949e;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: #8b949e;
+    }
+
+    .badge-blue  { border-color: #1f6feb; color: #58a6ff; background: #0d2044; }
+    .badge-green { border-color: #238636; color: #3fb950; background: #0d2b0e; }
+
+    section { padding: 40px 0; border-top: 1px solid #21262d; }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .step { margin-bottom: 32px; }
+    .step:last-child { margin-bottom: 0; }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1f6feb;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: #8b949e;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    pre {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .comment { color: #8b949e; }
+    .key     { color: #79c0ff; }
+    .val     { color: #a5d6ff; }
+    .str     { color: #a5d6ff; }
+    .kw      { color: #ff7b72; }
+    .cmd     { color: #3fb950; }
+
+    .inline-code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 13px;
+      color: #e6edf3;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .card-title {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      color: #58a6ff;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #8b949e;
+    }
+
+    footer {
+      border-top: 1px solid #21262d;
+      padding: 32px 0;
+      text-align: center;
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    footer a { color: #8b949e; }
+    footer a:hover { color: #e6edf3; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      </svg>
+      helm-apps / lib
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <hero>
+    <h1>Kubernetes manifests from <span>values.yaml</span></h1>
+    <p>A Helm library chart that generates complete Kubernetes manifests from a concise configuration — no templates required in your application repo.</p>
+    <div class="badge-row">
+      <span class="badge badge-blue">Helm Library Chart</span>
+      <span class="badge badge-green">Kubernetes 1.26+</span>
+      <span class="badge">Apache 2.0</span>
+    </div>
+  </hero>
+
+  <section>
+    <h2>Installation</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <p>Add the Helm repository:</p>
+      <pre><code><span class="cmd">helm repo add helm-apps https://helm-apps.github.io/lib</span>
+<span class="cmd">helm repo update</span></code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <p>Declare the dependency in your <span class="inline-code">.helm/Chart.yaml</span>:</p>
+      <pre><code><span class="key">apiVersion</span>: <span class="val">v2</span>
+<span class="key">name</span>: <span class="val">my-app</span>
+<span class="key">version</span>: <span class="val">1.0.0</span>
+<span class="key">dependencies</span>:
+  - <span class="key">name</span>: <span class="val">lib</span>
+    <span class="key">version</span>: <span class="str">"~1"</span>
+    <span class="key">repository</span>: <span class="str">"@helm-apps"</span></code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <p>Update dependencies:</p>
+      <pre><code><span class="cmd">helm dependency update .helm</span></code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <p>Create <span class="inline-code">.helm/templates/init-helm-apps-library.yaml</span>:</p>
+      <pre><code><span class="comment">{{- /* Initialize the helm-apps library */}}</span>
+<span class="comment">{{- include "apps-utils.init-library" $ }}</span></code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <p>Declare your applications in <span class="inline-code">.helm/values.yaml</span>:</p>
+      <pre><code><span class="key">global</span>:
+  <span class="key">env</span>: <span class="val">prod</span>
+
+<span class="key">apps-stateless</span>:
+  <span class="key">nginx</span>:
+    <span class="key">enabled</span>: <span class="kw">true</span>
+    <span class="key">replicas</span>: <span class="val">2</span>
+    <span class="key">containers</span>:
+      <span class="key">nginx</span>:
+        <span class="key">image</span>:
+          <span class="key">name</span>: <span class="val">nginx</span>
+          <span class="key">staticTag</span>: <span class="str">"1.27"</span>
+        <span class="key">ports</span>: |
+          - name: http
+            containerPort: 80
+    <span class="key">service</span>:
+      <span class="key">enabled</span>: <span class="kw">true</span>
+      <span class="key">ports</span>: |
+        - name: http
+          port: 80
+
+<span class="key">apps-ingresses</span>:
+  <span class="key">nginx</span>:
+    <span class="key">enabled</span>: <span class="kw">true</span>
+    <span class="key">host</span>: <span class="str">"example.com"</span>
+    <span class="key">paths</span>: |
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80</code></pre>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <p>Render locally to verify:</p>
+      <pre><code><span class="cmd">helm template my-app .helm --namespace my-ns --set "global.env=prod"</span></code></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Supported resource types</h2>
+    <div class="grid">
+      <div class="card"><div class="card-title">apps-stateless</div><div class="card-desc">Deployment + Service + PDB + HPA + VPA</div></div>
+      <div class="card"><div class="card-title">apps-stateful</div><div class="card-desc">StatefulSet + Service + PDB + VPA</div></div>
+      <div class="card"><div class="card-title">apps-cronjobs</div><div class="card-desc">CronJob + VPA</div></div>
+      <div class="card"><div class="card-title">apps-jobs</div><div class="card-desc">Job + VPA</div></div>
+      <div class="card"><div class="card-title">apps-configmaps</div><div class="card-desc">ConfigMap</div></div>
+      <div class="card"><div class="card-title">apps-secrets</div><div class="card-desc">Secret</div></div>
+      <div class="card"><div class="card-title">apps-ingresses</div><div class="card-desc">Ingress + Certificate (cert-manager)</div></div>
+      <div class="card"><div class="card-title">apps-services</div><div class="card-desc">Service</div></div>
+      <div class="card"><div class="card-title">apps-certificates</div><div class="card-desc">Certificate (cert-manager)</div></div>
+      <div class="card"><div class="card-title">apps-pvcs</div><div class="card-desc">PersistentVolumeClaim</div></div>
+      <div class="card"><div class="card-title">apps-limit-range</div><div class="card-desc">LimitRange</div></div>
+      <div class="card"><div class="card-title">apps-kafka-strimzi</div><div class="card-desc">Kafka (Strimzi)</div></div>
+      <div class="card"><div class="card-title">apps-karpenter-node-pool</div><div class="card-desc">Karpenter NodePool</div></div>
+      <div class="card"><div class="card-title">apps-karpenter-node-class</div><div class="card-desc">Karpenter EC2NodeClass</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key concepts</h2>
+
+    <div class="step">
+      <h3>Per-environment overrides</h3>
+      <p>Any field can carry environment-specific values resolved via <span class="inline-code">global.env</span>:</p>
+      <pre><code><span class="key">replicas</span>:
+  <span class="key">_default</span>: <span class="val">1</span>
+  <span class="key">prod</span>: <span class="val">3</span></code></pre>
+    </div>
+
+    <div class="step">
+      <h3>Config reuse with _include</h3>
+      <p>Define shared configuration blocks once, reference them anywhere:</p>
+      <pre><code><span class="comment"># helm-apps-defaults.yaml</span>
+<span class="key">my-defaults</span>:
+  <span class="key">imagePullSecrets</span>: |
+    - name: registry-secret
+  <span class="key">revisionHistoryLimit</span>: <span class="val">3</span>
+
+<span class="comment"># values.yaml</span>
+<span class="key">apps-stateless</span>:
+  <span class="key">my-app</span>:
+    <span class="key">_include</span>: [<span class="str">"my-defaults"</span>]
+    <span class="key">replicas</span>: <span class="val">2</span>   <span class="comment"># overrides anything from _include</span></code></pre>
+    </div>
+
+    <div class="step">
+      <h3>Go template interpolation</h3>
+      <p>Field values support Go template expressions:</p>
+      <pre><code><span class="key">apps-stateless</span>:
+  <span class="key">my-app</span>:
+    <span class="key">service</span>:
+      <span class="key">name</span>: <span class="str">"{{ $.CurrentApp.name }}-svc"</span></code></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Links</h2>
+    <p>
+      <a href="https://github.com/helm-apps/lib">GitHub repository</a> &nbsp;·&nbsp;
+      <a href="https://github.com/helm-apps/lib/blob/main/docs/usage.md">Usage guide</a> &nbsp;·&nbsp;
+      <a href="https://github.com/helm-apps/lib/blob/main/tests/.helm/values.yaml">Full example values</a> &nbsp;·&nbsp;
+      <a href="https://github.com/helm-apps/lib/issues">Issues</a>
+    </p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <a href="https://github.com/helm-apps/lib">helm-apps/lib</a> — released under the Apache 2.0 License
+  </div>
+</footer>
+
+</body>
+</html>
