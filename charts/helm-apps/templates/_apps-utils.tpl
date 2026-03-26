@@ -3,7 +3,7 @@
 {{-     $RelatedScope := index . 1 }}
 {{-     $val := index . 2 }}
 {{-     $msg := index . 3 }}
-{{-     $password := include "fl.value" (list $ $RelatedScope $val) }}
+{{-     $password := include "lib.value" (list $ $RelatedScope $val) }}
 {{-     if eq $password "!!!CHANGE_ME!!!" }}
 {{-         fail $msg }}
 {{-         else }}
@@ -11,15 +11,15 @@
 {{-     end }}
 {{- end -}}
 
-{{- define "fl.generateContainerImageQuoted" }}
+{{- define "lib.generateContainerImageQuoted" }}
 {{-     $ := index . 0 }}
 {{-     $relativeScope := index . 1 }}
 {{-     $imageConfig := index . 2 }}
-{{-     $imageName := include "fl.value" (list $ . $imageConfig.name) }}
-{{-     if include "fl.value" (list $ . $imageConfig.staticTag) }}
-{{-         $imageName }}:{{ include "fl.value" (list $ . $imageConfig.staticTag) }}
+{{-     $imageName := include "lib.value" (list $ . $imageConfig.name) }}
+{{-     if include "lib.value" (list $ . $imageConfig.staticTag) }}
+{{-         $imageName }}:{{ include "lib.value" (list $ . $imageConfig.staticTag) }}
 {{-         else -}}
-{{-         index $.Values.werf.image $imageName }}
+{{-         index $.Values.global.images $imageName }}
 {{-     end }}
 {{- end -}}
 
@@ -39,7 +39,7 @@
 {{ $relativeScope.__specName__ }}: {{ print . | nindent 0 }}
 {{-             end }}
 {{-         else }}
-{{-             with  include "fl.value" (list $ $relativeScope (index $relativeScope .)) | trim }}
+{{-             with  include "lib.value" (list $ $relativeScope (index $relativeScope .)) | trim }}
 {{ $specName }}: {{ print . | trim | nindent 0 }}
 {{-             end }}
 {{-         end }}
@@ -52,7 +52,7 @@
 {{ $relativeScope.__specName__ }}: {{ print . | nindent 2 }}
 {{-             end }}
 {{-         else }}
-{{-         with  include "fl.value" (list $ $relativeScope (index $relativeScope .)) | trim }}
+{{-         with  include "lib.value" (list $ $relativeScope (index $relativeScope .)) | trim }}
 {{ $specName }}: {{ print . | nindent 2 }}
 {{-         end }}
 {{-         end }}
@@ -65,7 +65,7 @@
 {{ $relativeScope.__specName__ }}: {{ print . | quote }}
 {{-             end }}
 {{-         else }}
-{{-         with  include "fl.valueQuoted" (list $ $relativeScope (index $relativeScope .)) }}
+{{-         with  include "lib.valueQuoted" (list $ $relativeScope (index $relativeScope .)) }}
 {{ $specName }}: {{ . }}
 {{-         end }}
 {{-         end }}
@@ -78,7 +78,7 @@
 {{ $relativeScope.__specName__ }}: {{ print . }}
 {{-             end }}
 {{-         else }}
-{{-         with  include "fl.value" (list $ $relativeScope (index $relativeScope .)) }}
+{{-         with  include "lib.value" (list $ $relativeScope (index $relativeScope .)) }}
 {{ $specName }}: {{ . }}
 {{-         end }}
 {{-         end }}
@@ -92,7 +92,7 @@
 {{ $relativeScope.__specName__ }}: {{ print $specValue }}
 {{-             end }}
 {{-         else }}
-{{-         if ne (include "fl.value" (list $ $relativeScope (index $relativeScope .))) "" }}
+{{-         if ne (include "lib.value" (list $ $relativeScope (index $relativeScope .))) "" }}
 {{ $specName }}: {{ index $relativeScope . }}
 {{-         end }}
 {{-         end }}
@@ -104,7 +104,7 @@
 {{-     $ := index . 0 }}
 {{-     $RelatedScope := index . 1  }}
 {{-     $VarName := index . 2 }}
-{{-     required (printf "You need a valid entry in %s.%s" ($.CurrentPath | join ".") $VarName ) (include "fl.value" (list $ $RelatedScope (index $RelatedScope $VarName ))) }}
+{{-     required (printf "You need a valid entry in %s.%s" ($.CurrentPath | join ".") $VarName ) (include "lib.value" (list $ $RelatedScope (index $RelatedScope $VarName ))) }}
 {{- end }}
 {{- define "apps-utils.enterScope" }}
 {{-     $ := index . 0 }}
@@ -122,14 +122,14 @@
 {{-     $ := . }}
 {{-     if hasKey $ "CurrentGroupVars"  }}
 {{-         if hasKey $.CurrentGroupVars "_preRenderAppHook" }}
-{{-             $_ := include "fl.value" (list $ $.CurrentApp $.CurrentGroupVars._preRenderAppHook) }}
+{{-             $_ := include "lib.value" (list $ $.CurrentApp $.CurrentGroupVars._preRenderAppHook) }}
 {{-         end }}
 {{-         if hasKey $.CurrentGroupVars "_groupPreRenderHook" }}
-{{-             $_ := include "fl.value" (list $ $.CurrentApp $.CurrentGroupVars._groupPreRenderHook) }}
+{{-             $_ := include "lib.value" (list $ $.CurrentApp $.CurrentGroupVars._groupPreRenderHook) }}
 {{-         end }}
 {{-     end }}
 {{-     if  hasKey $.CurrentApp "_preRenderHook" }}
-{{-         $_ := include "fl.value" (list $ $.CurrentApp $.CurrentApp._preRenderHook) }}
+{{-         $_ := include "lib.value" (list $ $.CurrentApp $.CurrentApp._preRenderHook) }}
 {{-     end }}
 {{- end -}}
 
@@ -141,7 +141,7 @@
 {{-     range $_appName, $_app := omit $appScope "global" "enabled" "_include" "__GroupVars__" "__AppType__" }}
 {{-         if hasKey . "__GroupVars__" }}
 {{-             include "_apps-utils.initCurrentGroupVars" (list $ . $_appName) }}
-{{-             if include "fl.isTrue" (list $ . $.CurrentGroupVars.enabled) }}
+{{-             if include "lib.isTrue" (list $ . $.CurrentGroupVars.enabled) }}
 {{-               include "apps-utils.renderApps" (list $ . $.CurrentGroupVars.type) }}
 {{-             end }}
 {{-             include "_apps-utils.initCurrentGroupVars" (list $ $appScope $appScope.__GroupVars__.name) }}
@@ -154,16 +154,16 @@
 {{-             if not (eq $type "__DO_NOT_RENDER__") }}
 {{-             $_ := set . "__AppName__" $_appName }}
 {{-                 if hasKey . "name" }}
-{{-                     $_ := set . "name" (include "fl.value" (list $ . .name)) }}
+{{-                     $_ := set . "name" (include "lib.value" (list $ . .name)) }}
 {{-                 else }}
 {{-                     $_ := set . "name" $_appName }}
 {{-                 end }}
 {{-                 $_ := set $ "CurrentApp" . }}
 {{-                 include "apps-utils.preRenderHooks" $ }}
-{{-                 if (include "fl.isTrue" (list $ . .randomName)) }}
+{{-                 if (include "lib.isTrue" (list $ . .randomName)) }}
 {{-                     $_ := set . "name" (printf "%s-%s" .name (randAlphaNum 7 | lower)) }}
 {{-                 end }}
-{{-                 if include "fl.isTrue" (list $ . .enabled) }}
+{{-                 if include "lib.isTrue" (list $ . .enabled) }}
 {{-                     if not .__Rendered__ }}
 {{-                         include "apps-utils.printPath" $ }}
 {{-                         include "apps-helpers.activateContainerForDefault" $ }}
@@ -194,17 +194,17 @@
 {{-       $_ := set $.CurrentGroupVars "enabled" true }}
 {{-     end }}
 {{-     if hasKey $groupScope.__GroupVars__ "_preRenderGroupHook" }}
-{{-         $_ = include "fl.value" (list $ $groupScope $groupScope.__GroupVars__._preRenderGroupHook) }}
+{{-         $_ = include "lib.value" (list $ $groupScope $groupScope.__GroupVars__._preRenderGroupHook) }}
 {{-     end }}
 {{- end -}}
 
 {{- define "apps-utils.init-library" }}
 {{- $ := . }}
 {{- include "apps-utils.includesFromFiles" $ }}
-{{- $_ := include "fl.expandIncludesInValues" (list $ $.Values) }}
+{{- $_ := include "lib.expandIncludesInValues" (list $ $.Values) }}
 {{- include "apps-utils.findApps" $ }}
 ---
-# Source: apps.utils:  fl.expandIncludesInValues
+# Source: apps.utils:  lib.expandIncludesInValues
 {{-     $Library := list
 "stateless"
 "stateful"
@@ -213,16 +213,14 @@
 "jobs"
 "configmaps"
 "secrets"
-"dex-clients"
-"dex-authenticators"
 "limit-range"
 "kafka-strimzi"
-"custom-prometheus-rules"
-"grafana-dashboards"
-"infra"
 "pvcs"
 "certificates"
 "services"
+"karpenter"
+"karpenter-node-pool"
+"karpenter-node-class"
 }}
 {{-     range $app := $Library }}
 {{-         include (printf "apps-%s" $app) (list $ (index $.Values (printf "apps-%s" $app))) }}
@@ -242,7 +240,7 @@
 {{-                 $_ := set $group.__GroupVars__ "enabled" true }}
 {{-             end }}
 {{-             $_ := set $group.__GroupVars__ "name" $groupName }}
-{{-             if include "fl.isTrue" (list $ . $group.__GroupVars__.enabled) }}
+{{-             if include "lib.isTrue" (list $ . $group.__GroupVars__.enabled) }}
 {{-                 include "apps-utils.renderApps" (list $ .) }}
 {{-             end }}
 {{-         end }}
