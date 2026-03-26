@@ -5,6 +5,6 @@ validate:
   stage: validate
   image: alpine/helm:latest
   script:
-    - helm repo add helm-apps https://flant.github.io/helm-apps
+    - helm repo add helm-apps https://helm-apps.github.io/lib
     - helm dependency update .helm
     - helm template myapp .helm --namespace myns --set "global.env=prod" > /dev/null

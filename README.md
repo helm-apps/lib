@@ -15,7 +15,7 @@ A Helm library chart that generates complete Kubernetes manifests from a concise
 ### 1. Add the repository and declare the dependency
 
 ```bash
-helm repo add helm-apps https://flant.github.io/helm-apps
+helm repo add helm-apps https://helm-apps.github.io/lib
 helm dependency update .helm
 ```
 
@@ -27,7 +27,7 @@ version: 1.0.0
 dependencies:
 - name: helm-apps
   version: "~1"
-  repository: "https://flant.github.io/helm-apps"
+  repository: "@helm-apps"
 ```
 
 ### 2. Initialize the library

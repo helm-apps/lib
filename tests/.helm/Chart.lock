@@ -3,4 +3,4 @@ dependencies:
   repository: file://../../charts/helm-apps/
   version: "1.3"
 digest: sha256:46bc1ee1d57faf921ec369558d520d62bf7e446c3bb5ecb95bb782f7f0015c08
-generated: "2026-03-26T22:25:20.443629+01:00"
+generated: "2026-03-26T23:04:30.280239+01:00"
